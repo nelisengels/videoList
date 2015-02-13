@@ -12,3 +12,12 @@
 	right: 10px;
 	position: absolute;
 }
+
+.signin label{
+	position: relative;
+	top: 5px;
+}
+
+.login-modal.modal-content{
+	padding: 35px;
+}
