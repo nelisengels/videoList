@@ -37,7 +37,7 @@ var UserSchema = new Schema({
 		default: '',
 		validate: [validateLocalStrategyPassword, 'Password should be longer']
 	},
-	avata: {
+	avatar: {
 		type: String,
 		default: ''
 	},

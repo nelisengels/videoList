@@ -43,15 +43,12 @@ exports.signup = function(req, res) {
  */
 exports.signin = function(req, res, next) {
 	passport.authenticate('local', function(err, user, info) {
-		console.log(user,'------------222---------'  );
 		if (err || !user) {
 			res.status(400).send(info);
 		} else {
-			console.log(user ,'------------232332---------' );
 			// Remove sensitive data before login
 			user.password = undefined;
 			user.salt = undefined;
-			console.log(user ,'------------444---------' );
 
 			req.login(user, function(err) {
 				if (err) {
@@ -96,7 +93,7 @@ exports.oauthCallback = function(strategy) {
  * Helper function to save or update a OAuth user profile
  */
 exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
-	/*if (!req.user) {
+	if (!req.user) {
 		// Define a search query fields
 		var searchMainProviderIdentifierField = 'providerData.' + providerUserProfile.providerIdentifierField;
 		var searchAdditionalProviderIdentifierField = 'additionalProvidersData.' + providerUserProfile.provider + '.' + providerUserProfile.providerIdentifierField;
@@ -157,7 +154,7 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 		} else {
 			return done(new Error('User is already connected using this provider'), user);
 		}
-	}*/
+	}
 };
 
 /**
