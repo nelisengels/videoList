@@ -25,22 +25,6 @@ var validateLocalStrategyPassword = function(password) {
  * User Schema
  */
 var UserSchema = new Schema({
-	firstName: {
-		type: String,
-		trim: true,
-		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your first name']
-	},
-	lastName: {
-		type: String,
-		trim: true,
-		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your last name']
-	},
-	displayName: {
-		type: String,
-		trim: true
-	},
 	email: {
 		type: String,
 		trim: true,
@@ -48,32 +32,38 @@ var UserSchema = new Schema({
 		validate: [validateLocalStrategyProperty, 'Please fill in your email'],
 		match: [/.+\@.+\..+/, 'Please fill a valid email address']
 	},
-	username: {
-		type: String,
-		unique: 'Username already exists',
-		required: 'Please fill in a username',
-		trim: true
-	},
 	password: {
 		type: String,
 		default: '',
 		validate: [validateLocalStrategyPassword, 'Password should be longer']
 	},
-	salt: {
-		type: String
-	},
-	provider: {
+	avata: {
 		type: String,
-		required: 'Provider is required'
+		default: ''
 	},
-	providerData: {},
-	additionalProvidersData: {},
-	roles: {
-		type: [{
-			type: String,
-			enum: ['user', 'admin']
-		}],
-		default: ['user']
+	name: {
+		type: String,
+		default: ''
+	},
+	jobTitle: {
+		type: String,
+		default: ''
+	},
+	company: {
+		type: String,
+		default: ''
+	},
+	location: {
+		type: String,
+		default: ''
+	},
+	admin: {
+		type: Boolean,
+		default: false
+	},
+	channels: {
+		type: Schema.ObjectId,
+		ref: 'Channel'
 	},
 	updated: {
 		type: Date

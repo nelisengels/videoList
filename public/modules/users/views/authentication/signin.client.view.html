@@ -1,40 +1,52 @@
-<section class="row" data-ng-controller="AuthenticationController">
-	<h3 class="col-md-12 text-center">Sign in using your social accounts</h3>
-	<div class="col-md-12 text-center">
-		<a href="/auth/facebook" class="undecorated-link">
-			<img src="/modules/users/img/buttons/facebook.png">
-		</a>
-		<a href="/auth/twitter" class="undecorated-link">
-			<img src="/modules/users/img/buttons/twitter.png">
-		</a>
-		<a href="/auth/google" class="undecorated-link">
-			<img src="/modules/users/img/buttons/google.png">
-		</a>
-		<a href="/auth/linkedin" class="undecorated-link">
-			<img src="/modules/users/img/buttons/linkedin.png">
-		</a>
-		<a href="/auth/github" class="undecorated-link">
-			<img src="/modules/users/img/buttons/github.png">
-		</a>
-	</div>
-	<h3 class="col-md-12 text-center">Or with your account</h3>
-	<div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
-		<form data-ng-submit="signin()" class="signin form-horizontal" autocomplete="off">
+<div class="modal-block-container">
+<section class="row modal-section" data-ng-controller="AuthenticationController">
+	<div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-5 login-modal modal-content">
+		<a href="#!/" class="glyphicon glyphicon-remove pull-right close-modal-content"></a>
+		<form name="userForm" data-ng-submit="signin()" class="signin form-horizontal" autocomplete="off">
 			<fieldset>
 				<div class="form-group">
-					<label for="username">Username</label>
-					<input type="text" id="username" name="username" class="form-control" data-ng-model="credentials.username" placeholder="Username">
+					<div class="row">
+						<div class="col-md-12">
+							<h2>Sign In</h2>
+						</div>
+					</div>
 				</div>
 				<div class="form-group">
-					<label for="password">Password</label>
-					<input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password">
+					<div class="row">
+						<div class="col-md-5">
+							<label for="email">your email address</label>
+						</div>
+						<div class="col-md-7">
+							<input type="email" id="email" name="email" class="form-control" data-ng-model="credentials.email" placeholder="Email">
+						</div>
+					</div>
 				</div>
-				<div class="text-center form-group">
-					<button type="submit" class="btn btn-primary">Sign in</button>&nbsp; or&nbsp;
-					<a href="/#!/signup">Sign up</a>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-5">
+							<label for="password">a password</label>
+						</div>
+						<div class="col-md-7">
+							<input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password">
+						</div>
+					</div>				
 				</div>
-				<div class="forgot-password">
-					<a href="/#!/password/forgot">Forgot your password?</a>
+				<div class="form-group">
+					<button type="submit" class="btn btn-large btn-primary pull-right" >Sign in</button>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-xs-6">
+							<a href="/auth/facebook" class="undecorated-link">
+								<button class="btn btn-large btn-primary form-control">Use Facebook Credential</button>
+							</a>						
+						</div>
+						<div class="col-xs-6">
+							<a href="/auth/google" class="undecorated-link">
+								<button class="btn btn-large btn-primary form-control">Use Google Credential</button>
+							</a>						
+						</div>
+					</div>
 				</div>
 				<div data-ng-show="error" class="text-center text-danger">
 					<strong data-ng-bind="error"></strong>
@@ -43,3 +55,4 @@
 		</form>
 	</div>
 </section>
+</div>

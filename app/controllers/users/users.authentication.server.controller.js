@@ -13,17 +13,10 @@ var _ = require('lodash'),
  * Signup
  */
 exports.signup = function(req, res) {
-	// For security measurement we remove the roles from the req.body object
-	delete req.body.roles;
 
 	// Init Variables
 	var user = new User(req.body);
 	var message = null;
-
-	// Add missing user fields
-	user.provider = 'local';
-	user.displayName = user.firstName + ' ' + user.lastName;
-
 	// Then save the user 
 	user.save(function(err) {
 		if (err) {
@@ -33,7 +26,6 @@ exports.signup = function(req, res) {
 		} else {
 			// Remove sensitive data before login
 			user.password = undefined;
-			user.salt = undefined;
 
 			req.login(user, function(err) {
 				if (err) {
@@ -51,12 +43,15 @@ exports.signup = function(req, res) {
  */
 exports.signin = function(req, res, next) {
 	passport.authenticate('local', function(err, user, info) {
+		console.log(user,'------------222---------'  );
 		if (err || !user) {
 			res.status(400).send(info);
 		} else {
+			console.log(user ,'------------232332---------' );
 			// Remove sensitive data before login
 			user.password = undefined;
 			user.salt = undefined;
+			console.log(user ,'------------444---------' );
 
 			req.login(user, function(err) {
 				if (err) {
@@ -101,7 +96,7 @@ exports.oauthCallback = function(strategy) {
  * Helper function to save or update a OAuth user profile
  */
 exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
-	if (!req.user) {
+	/*if (!req.user) {
 		// Define a search query fields
 		var searchMainProviderIdentifierField = 'providerData.' + providerUserProfile.providerIdentifierField;
 		var searchAdditionalProviderIdentifierField = 'additionalProvidersData.' + providerUserProfile.provider + '.' + providerUserProfile.providerIdentifierField;
@@ -125,17 +120,11 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 				return done(err);
 			} else {
 				if (!user) {
-					var possibleUsername = providerUserProfile.username || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
+					var possibleUsername = providerUserProfile.email;
 
 					User.findUniqueUsername(possibleUsername, null, function(availableUsername) {
 						user = new User({
-							firstName: providerUserProfile.firstName,
-							lastName: providerUserProfile.lastName,
-							username: availableUsername,
-							displayName: providerUserProfile.displayName,
-							email: providerUserProfile.email,
-							provider: providerUserProfile.provider,
-							providerData: providerUserProfile.providerData
+							email: providerUserProfile.email
 						});
 
 						// And save the user
@@ -168,7 +157,7 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 		} else {
 			return done(new Error('User is already connected using this provider'), user);
 		}
-	}
+	}*/
 };
 
 /**
