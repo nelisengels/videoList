@@ -39,7 +39,6 @@ exports.update = function(req, res) {
 	var channel = req.channel;
 
 	channel = _.extend(channel, req.body);
-	console.log("--------------------", channel );
 	channel.save(function(err) {
 		if (err) {
 			return res.status(400).send({

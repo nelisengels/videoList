@@ -3,9 +3,9 @@
 angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication', 'Classlevels', 'Channels',
 	function($scope, $http, $location, Authentication, Classlevels, Channels) {
 		$scope.authentication = Authentication;
-		$scope.credentials = new Object();
-		$scope.credentials.email = "";
-		$scope.credentials.password = "";
+		$scope.credentials = new Object({});
+		$scope.credentials.email = '';
+		$scope.credentials.password = '';
 		$scope.signup_step = 1;
 
 		// If user is signed in then redirect back home
@@ -15,8 +15,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 		$scope.classlevels = Classlevels.query();
 
 		$scope.nextstep = function() {
-			if ($scope.credentials.email == "" || $scope.credentials.password == "" ){
-				$scope.error = "please input the valid email and password";
+			if (($scope.credentials.email === '') || ($scope.credentials.password === '') ){
+				$scope.error = 'please input the valid email and password';
 				return;
 			}
 			$scope.selected_classlevel = $scope.classlevels[0];
@@ -24,8 +24,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 		};
 
 		$scope.onUserSignup = function(){
-			if ($scope.channel_name == "" || $scope.channel_name == null ){
-				$scope.error = "please input the channel name";
+			if ($scope.channel_name === '' || $scope.channel_name === null ){
+				$scope.error = 'please input the channel name';
 				return;
 			}
 			var channel = new Channels({
