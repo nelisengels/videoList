@@ -4,7 +4,7 @@
 angular.module('channels').factory('Channels', ['$resource',
 	function($resource) {
 		return $resource('channels/:channelId', {
-			classId: '@_id'
+			channelId: '@_id'
 		}, {
 			update: {
 				method: 'PUT'

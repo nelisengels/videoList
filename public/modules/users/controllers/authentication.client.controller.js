@@ -3,7 +3,7 @@
 angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication', 'Classlevels', 'Channels',
 	function($scope, $http, $location, Authentication, Classlevels, Channels) {
 		$scope.authentication = Authentication;
-		$scope.credentials = new Object;
+		$scope.credentials = new Object();
 		$scope.credentials.email = "";
 		$scope.credentials.password = "";
 		$scope.signup_step = 1;

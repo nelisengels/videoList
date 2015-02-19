@@ -88,7 +88,6 @@ exports.delete = function(req, res) {
  */
 exports.list = function(req, res) {
 	Classlevel.find().exec(function(err, classlevel) {
-		console.log('------------', classlevel, err);
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)

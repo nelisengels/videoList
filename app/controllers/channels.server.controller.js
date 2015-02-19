@@ -39,7 +39,7 @@ exports.update = function(req, res) {
 	var channel = req.channel;
 
 	channel = _.extend(channel, req.body);
-
+	console.log("--------------------", channel );
 	channel.save(function(err) {
 		if (err) {
 			return res.status(400).send({
@@ -50,7 +50,6 @@ exports.update = function(req, res) {
 		}
 	});
 };
-
 /**
  * Delete an channel
  */
@@ -73,7 +72,6 @@ exports.delete = function(req, res) {
  */
 exports.list = function(req, res) {
 	Channel.find().exec(function(err, channel) {
-		console.log('------------', channel, err);
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)

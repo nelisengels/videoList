@@ -1,8 +1,25 @@
 'use strict';
 
-angular.module('users').controller('SettingsController', ['$scope', '$http', '$location', 'Users', 'Authentication',
-	function($scope, $http, $location, Users, Authentication) {
+angular.module('users').controller('SettingsController', ['$scope', '$http', '$location','Users', 'Authentication', 'Classlevels', 'Channels',
+	function($scope, $http, $location, Users, Authentication, Classlevels, Channels) {
 		$scope.user = Authentication.user;
+
+		$scope.classlevels = Classlevels.query();
+		$scope.channels = Channels.query();
+		
+		$scope.selected_channel = Channels.get({
+			channelId: $scope.user.channels
+		}, function(){
+			//$scope.selected_classlevel = Classlevels.get({
+			//	classId: $scope.selected_channel.classLevel
+			//});
+			for (var i = 0; i < $scope.classlevels.length; i++ ){
+				if ($scope.selected_channel.classLevel == $scope.classlevels[i]._id ){
+					$scope.selected_classlevel = $scope.classlevels[i];
+					break;
+				}
+			}
+		});
 
 		// If user is not signed in then redirect back home
 		if (!$scope.user) $location.path('/');
@@ -53,6 +70,44 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 			} else {
 				$scope.submitted = true;
 			}
+		};
+
+		$scope.updateUserEmail = function(){
+			$scope.success = $scope.error = null;
+			var user = new Users($scope.user);
+			user.$update(function(response) {
+				$scope.success = true;
+				Authentication.user = response;
+				console.log(response );
+			}, function(response) {
+				$scope.error = response.data.message;
+			});
+		};
+
+		$scope.updateChannel = function(){
+			$scope.success = $scope.error = null;
+			var classLevel = $scope.selected_classlevel;//new Classlevels($scope.selected_classlevel );
+			var channel = $scope.selected_channel;//new Channels($scope.selected_channel );
+
+			/*classLevel.$update(function(response) {
+				$scope.success = true;
+				console.log(response );
+			}, function(response) {
+				$scope.error = response.data.message;
+			});*/
+			
+			channel.classLevel = $scope.selected_classlevel._id;
+			channel.$update(function(response) {
+				$scope.success = true;
+				console.log(response );
+			}, function(response) {
+				$scope.error = response.data.message;
+			});
+
+		}
+
+		$scope.gotoChangePassword = function() {
+			$location.path('/settings/password');
 		};
 
 		// Change user password
