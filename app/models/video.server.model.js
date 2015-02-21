@@ -36,10 +36,10 @@ var VideoSchema = new Schema({
 		type: String,
 		default: ''
 	},
-	language: {
+	language: [{
 		type: String,
 		default: ''
-	},
+	}],
 	createdBy: {
 		type:Schema.ObjectId,
 		ref: 'User'

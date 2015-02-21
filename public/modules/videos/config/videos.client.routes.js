@@ -7,7 +7,7 @@ angular.module('videos').config(['$stateProvider',
 		$stateProvider.
 		state('listVideos', {
 			url: '/videos',
-			templateUrl: 'modules/videos/views/list-videos.client.view.html'
+			templateUrl: 'modules/videos/views/list-video.client.view.html'
 		}).
 		state('createVideo', {
 			url: '/settings/video',
