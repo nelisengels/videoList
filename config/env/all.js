@@ -45,8 +45,7 @@ module.exports = {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.css',
 				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
-				'public/lib/bootstrap-tagsinput/dist/bootstrap-tagsinput.css',
-				'public/lib/bootstrap-tagsinput/examples/lib/rainbow/themes/github.css'
+				'public/lib/angular-ui-select/dist/select.min.css'
 			],
 			js: [
 				'public/lib/jquery/dist/jquery.min.js',			
@@ -57,14 +56,8 @@ module.exports = {
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
 				'public/lib/angular-bootstrap/ui-bootstrap.js',
-				'public/lib/bootstrap-tagsinput/dist/bootstrap-tagsinput.js',
-				'public/lib/bootstrap-tagsinput/dist/bootstrap-tagsinput-angular.js',
-			    'public/lib/bootstrap-tagsinput/examples/lib/typeahead.js/dist/typeahead.bundle.js',
-			    'public/lib/bootstrap-tagsinput/examples/lib/rainbow/js/rainbow.min.js',
-			    'public/lib/bootstrap-tagsinput/examples/lib/rainbow/js/language/generic.js',
-			    'public/lib/bootstrap-tagsinput/examples/lib/rainbow/js/language/html.js',
-			    'public/lib/bootstrap-tagsinput/examples/lib/rainbow/js/language/javascript.js'
-			]
+				'public/lib/angular-ui-select/dist/select.min.js'
+				]
 		},
 		css: [
 			'public/modules/**/css/*.css'

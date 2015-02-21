@@ -4,6 +4,9 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 	function($scope, $http, $location, Users, Authentication, Classlevels, Channels) {
 		$scope.user = Authentication.user;
 
+		// If user is not signed in then redirect back home
+		if (!$scope.user) $location.path('/');		
+
 		$scope.classlevels = Classlevels.query();
 		$scope.channels = Channels.query();
 		
@@ -20,45 +23,6 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 				}
 			}
 		});
-
-		// If user is not signed in then redirect back home
-		if (!$scope.user) $location.path('/');
-
-
-		$scope.cities = [
-	        { 'value': 1 , 'text': 'Amsterdam'   , 'continent': 'Europe'    },
-	        { 'value': 4 , 'text': 'Washington'  , 'continent': 'America'   },
-	        { 'value': 7 , 'text': 'Sydney'      , 'continent': 'Australia' },
-	        { 'value': 10, 'text': 'Beijing'     , 'continent': 'Asia'      },
-	        { 'value': 13, 'text': 'Cairo'       , 'continent': 'Africa'    }
-	      ];
-
-	      $scope.queryCities = [ { 'value': 1 , 'text': 'Amsterdam'   , 'continent': 'Europe'    },
-			  { 'value': 2 , 'text': 'London'      , 'continent': 'Europe'    },
-			  { 'value': 3 , 'text': 'Paris'       , 'continent': 'Europe'    },
-			  { 'value': 4 , 'text': 'Washington'  , 'continent': 'America'   },
-			  { 'value': 5 , 'text': 'Mexico City' , 'continent': 'America'   },
-			  { 'value': 6 , 'text': 'Buenos Aires', 'continent': 'America'   },
-			  { 'value': 7 , 'text': 'Sydney'      , 'continent': 'Australia' },
-			  { 'value': 8 , 'text': 'Wellington'  , 'continent': 'Australia' },
-			  { 'value': 9 , 'text': 'Canberra'    , 'continent': 'Australia' },
-			  { 'value': 10, 'text': 'Beijing'     , 'continent': 'Asia'      },
-			  { 'value': 11, 'text': 'New Delhi'   , 'continent': 'Asia'      },
-			  { 'value': 12, 'text': 'Kathmandu'   , 'continent': 'Asia'      },
-			  { 'value': 13, 'text': 'Cairo'       , 'continent': 'Africa'    },
-			  { 'value': 14, 'text': 'Cape Town'   , 'continent': 'Africa'    },
-			  { 'value': 15, 'text': 'Kinshasa'    , 'continent': 'Africa'    }
-			];
-
-	      $scope.getTagClass = function(city) {
-	        switch (city.continent) {
-	          case 'Europe'   : return 'badge badge-info';
-	          case 'America'  : return 'label label-important';
-	          case 'Australia': return 'badge badge-success';
-	          case 'Africa'   : return 'label label-inverse';
-	          case 'Asia'     : return 'badge badge-warning';
-	        }
-	      };
 
 		// Check if there are additional accounts 
 		$scope.hasConnectedAdditionalSocialAccounts = function(provider) {

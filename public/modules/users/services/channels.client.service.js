@@ -1,6 +1,6 @@
 'use strict';
 
-//Articles service used for communicating with the articles REST endpoints
+//Channels service used for communicating with the channels REST endpoints
 angular.module('channels').factory('Channels', ['$resource',
 	function($resource) {
 		return $resource('channels/:channelId', {
