@@ -4,6 +4,7 @@ angular.module('videos').controller('VideoController', ['$scope', '$stateParams'
 	function($scope, $stateParams, $location, Authentication, Videos, Languages, Classlevels, Albums, Tags) {
 		$scope.authentication = Authentication;
 		$scope.user = Authentication.user;
+		if (!$scope.user) $location.path('/');	
 
 		$scope.multipleDemo = {};
 		$scope.multipleDemo.colors = ['Blue','Red'];
@@ -50,48 +51,109 @@ angular.module('videos').controller('VideoController', ['$scope', '$stateParams'
 			}
 		});
 
+		$scope.importVideoInfo = function(){
+			$scope.video.createdBy = $scope.user._id;
+			var video_data = new Videos($scope.video );
+			$scope.success = null;
+			$scope.error = null;
+			video_data.$save(function(response) {
+				$scope.success = true;
+				$scope.video = response;
+				$scope.updateVideoInfo();
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
 		$scope.updateVideoInfo = function(){
 			$scope.video.classLevels = [];
+			var newItems = [];
 			for (var i = 0; i < $scope.classlevels.names.length; i++ ){
 				if ($scope.isInData($scope.classlevels.names[i], $scope.classlevels_all) > -1){
 					$scope.video.classLevels.push($scope.classlevels_all[i]._id );
+				}else{
+					newItems.push({type:"classlevel", name: $scope.classlevels.names[i]} );
 				}
 			}
 
 			$scope.video.tags = [];
-			for (var i = 0; i < $scope.tags.names.length; i++ ){
+			for (i = 0; i < $scope.tags.names.length; i++ ){
 				if ($scope.isInData($scope.tags.names[i], $scope.tags_all) > -1){
 					$scope.video.tags.push($scope.tags_all[i]._id );
+				}else{
+					newItems.push({type:"tag", name: $scope.tags.names[i]} );
 				}
 			}
 
 			$scope.video.albums = [];
-			for (var i = 0; i < $scope.albums.names.length; i++ ){
+			for (i = 0; i < $scope.albums.names.length; i++ ){
 				if ($scope.isInData($scope.albums.names[i], $scope.albums_all) > -1){
 					$scope.video.albums.push($scope.albums_all[i]._id );
+				}else{
+					newItems.push({type:"album", name: $scope.albums.names[i]}  );
 				}
 			}			
 
 			$scope.video.language = [];
-			for (var i = 0; i < $scope.languages.names.length; i++ ){
+			for (i = 0; i < $scope.languages.names.length; i++ ){
 				if ($scope.isInData($scope.languages.names[i], $scope.languages_all) > -1){
 					$scope.video.language.push($scope.languages_all[i]._id );
+				}else{
+					newItems.push({type:"language", name: $scope.languages.names[i]}  );
 				}
-			}			
-			$scope.video.createdBy = $scope.user._id;
+			}
 
-			var video_data = new Videos($scope.video );
+			function createNewItems(){
+				if (newItems.length > 0 ){
+					switch(newItems[0].type){
+						case "classlevel":
+							var classlevel = new Classlevels({name: newItems[0].name});
+							classlevel.$save(function(response){
+								$scope.video.classLevels.push(response._id );
+								newItems.shift();
+								createNewItems();
+							});
+							break;
+						case "tag":
+							var tag = new Tags({name: newItems[0].name});
+							tag.$save(function(response){
+								$scope.video.tags.push(response._id );
+								newItems.shift();
+								createNewItems();
+							});						
+							break;
+						case "album":
+							var album = new Albums({name: newItems[0].name});
+							album.$save(function(response){
+								$scope.video.albums.push(response._id );
+								newItems.shift();
+								createNewItems();
+							});						
+							break;
+						case "language":
+							var language = new Languages({name: newItems[0].name});
+							language.$save(function(response){
+								$scope.video.language.push(response._id );
+								newItems.shift();
+								createNewItems();
+							});						
+							break;
+					}
 
-			$scope.success = null;
-			$scope.error = null;
-			video_data.$save(function(response) {
-				console.log(response );
-				$scope.success = true;
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
+				}else{
+					updateVideo();
+				}
+			};
 
-			console.log($scope.video );
+			function updateVideo(){
+				var video_data = new Videos($scope.video );
+				video_data.$update(function(response){
+					console.log(video_data );
+				});
+			};
+
+			createNewItems();
+			
 		};
 
 		$scope.isInData = function(cls_name, main_data ){

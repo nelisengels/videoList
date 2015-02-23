@@ -22,10 +22,16 @@
 			<li class="divider-vertical"></li>
 			<li ui-route="/signup" ng-class="{active: $uiRoute}">
 				<a href="/#!/signup">Sign Up</a>
-			</li>			
+			</li>
 		</ul>
 
 		<ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">
+			<li class="main-menu-ul">
+				<a href="/#!/subjects">Subject List (testing)</a>
+			</li>		
+			<li class="main-menu-ul">
+				<a href="/#!/settings/subject">Create Subject</a>
+			</li>
 			<li class="main-menu-ul">
 				<a href="/#!/videos">Video List (testing)</a>
 			</li>

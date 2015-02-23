@@ -61,10 +61,10 @@ var UserSchema = new Schema({
 		type: Boolean,
 		default: false
 	},
-	channels: {
+	channels: [{
 		type: Schema.ObjectId,
 		ref: 'Channel'
-	},
+	}],
 	updated: {
 		type: Date
 	},

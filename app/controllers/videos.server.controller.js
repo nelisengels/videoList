@@ -37,7 +37,6 @@ exports.read = function(req, res) {
  */
 exports.update = function(req, res) {
 	var video = req.video;
-
 	video = _.extend(video, req.body);
 	video.save(function(err) {
 		if (err) {
@@ -85,7 +84,6 @@ exports.list = function(req, res) {
  * Video middleware
  */
 exports.videoByID = function(req, res, next, id) {
-
 	if (!mongoose.Types.ObjectId.isValid(id)) {
 		return res.status(400).send({
 			message: 'Video is invalid'
