@@ -56,7 +56,9 @@ module.exports = {
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
 				'public/lib/angular-bootstrap/ui-bootstrap.js',
-				'public/lib/angular-ui-select/dist/select.min.js'
+				'public/lib/angular-ui-select/dist/select.min.js',
+				'public/lib/angular-file-upload-with-mean/client/javascript/lib/angular-file-upload-shim.js',
+				'public/lib/angular-file-upload-with-mean/client/javascript/lib/angular-file-upload.js'
 				]
 		},
 		css: [

@@ -21,23 +21,23 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				$scope.error = 'please input the valid email and password';
 				return;
 			}
-			$scope.channels.push({channel_name: "", selected_classlevel: $scope.classlevels[0]});
+			$scope.channels.push({channel_name: '', selected_classlevel: $scope.classlevels[0]});
 			//$scope.selected_classlevel = $scope.classlevels[0];
 			$scope.signup_step = 2;
 		};
 
 		$scope.addChannelItem = function(){
-			$scope.channels.push({channel_name: "", selected_classlevel: $scope.classlevels[0]});
-		}
+			$scope.channels.push({channel_name: '', selected_classlevel: $scope.classlevels[0]});
+		};
 
 		$scope.removeChannel = function(index){
 			$scope.channels.splice(index, 1);
-		}
+		};
 
 		$scope.onUserSignup = function(){
 			var channel_count = 0;	
 			function createChannelInfo(){
-				if (channel_count == $scope.channels.length){
+				if (channel_count === $scope.channels.length){
 					$scope.signup();
 				}else{
 					var channel = new Channels({
@@ -53,7 +53,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 						$scope.error = errorResponse.data.message;
 					});
 				}
-			};
+			}
+			
 			createChannelInfo();
 			/*if ($scope.channel_name === '' || $scope.channel_name === null ){
 				$scope.error = 'please input the channel name';

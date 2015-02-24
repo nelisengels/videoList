@@ -84,3 +84,33 @@
 	padding: 0px 30px;
 	margin-bottom: 15px;	
 }
+
+.file-upload-ctrl{
+	width: calc(100% - 40px);
+}
+
+.avatar-image{
+	position: relative;
+	top: 10px;
+	height: 30px;
+	width: 30px;
+	border-radius: 30px;
+	border: solid 2px white;
+	background: gray;
+}
+
+.avatar-ul{
+	list-style: none;
+}
+
+.avata-ul li{
+	list-style: none;
+	float: left;
+}
+
+.avata-ul li a.avatar-name{
+	color: white;
+	position: relative;
+	top: 15px;
+	margin: 0px 15px;
+}

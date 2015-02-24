@@ -4,8 +4,8 @@ angular.module('subjects').controller('SubjectController', ['$scope', '$statePar
 	function($scope, $stateParams, $location, Authentication, Subjects ) {
 		$scope.authentication = Authentication;
 		$scope.subject = {};
-		$scope.subject.name = "";
-		$scope.subject.weight = "";
+		$scope.subject.name = '';
+		$scope.subject.weight = '';
 
 		$scope.sbuject_list = Subjects.query();
 
@@ -17,7 +17,7 @@ angular.module('subjects').controller('SubjectController', ['$scope', '$statePar
 				$scope.success = true;
 				$scope.subject = response;
 				console.log($scope.subject );
-			})
+			});
 		};
 	}
 ]);

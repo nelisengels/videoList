@@ -22,6 +22,7 @@ var fs = require('fs'),
 	flash = require('connect-flash'),
 	config = require('./config'),
 	consolidate = require('consolidate'),
+	connect = require('connect'),
 	path = require('path');
 
 module.exports = function(db) {
@@ -94,6 +95,8 @@ module.exports = function(db) {
 
 	// Setting the app router and static folder
 	app.use(express.static(path.resolve('./public')));
+
+	app.use(connect.multipart());
 
 	// CookieParser should be above session
 	app.use(cookieParser());

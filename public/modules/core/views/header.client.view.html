@@ -7,6 +7,14 @@
 			<span class="icon-bar"></span>
 		</button>
 		<a href="/#!/" class="navbar-brand">Logo</a>
+		<ul data-ng-show="authentication.user" class="pull-right avata-ul">
+			<li>
+				<img ng-src="uploads/{{user.avatar}}" class="avatar-image" />
+			</li>
+			<li>
+				<a href="/#!/" class="avatar-name">{{authentication.user.email}}</a>
+			</li>		
+		</ul>
 	</div>
 	<nav class="collapse navbar-collapse" collapse="!isCollapsed" role="navigation">
 		<ul class="nav navbar-nav navbar-left" >
@@ -27,23 +35,30 @@
 
 		<ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">
 			<li class="main-menu-ul">
-				<a href="/#!/subjects">Subject List (testing)</a>
+				<a href="/#!/albums">Album List (testing)</a>
 			</li>		
+			<li class="main-menu-ul">
+				<a href="/#!/settings/album">Create Album</a>
+			</li>
+			<!--<li class="main-menu-ul">
+				<a href="/#!/subjects">Subject List (testing)</a>
+			</li-->		
 			<li class="main-menu-ul">
 				<a href="/#!/settings/subject">Create Subject</a>
 			</li>
-			<li class="main-menu-ul">
+			<!--<li class="main-menu-ul">
 				<a href="/#!/videos">Video List (testing)</a>
-			</li>
+			</li>-->
 			<li class="main-menu-ul">
 				<a href="/#!/settings/video">+ Video</a>
 			</li>
 			<li>
 				<a href="/#!/settings/profile">My Settings</a>
-			</li>
+			</li>			
 			<li>
 				<a href="/auth/signout">Signout</a>
 			</li>
 		</ul>
 	</nav>
+
 </div>

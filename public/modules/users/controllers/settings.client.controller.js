@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users').controller('SettingsController', ['$scope', '$http', '$location','Users', 'Authentication', 'Classlevels', 'Channels',
-	function($scope, $http, $location, Users, Authentication, Classlevels, Channels) {
+angular.module('users').controller('SettingsController', ['$scope', '$http', '$location','$upload', '$timeout', 'Users', 'Authentication', 'Classlevels', 'Channels',
+	function($scope, $http, $location, $upload, $timeout, Users, Authentication, Classlevels, Channels) {
 		$scope.user = Authentication.user;
 
 		// If user is not signed in then redirect back home
@@ -19,27 +19,25 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 					for (var i = 0; i < $scope.classlevels.length; i++ ){
 						if (response.classLevel === $scope.classlevels[i]._id ){
 							$scope.selected_channels[channel_count].selected_classlevel = $scope.classlevels[i];
-							$scope.selected_channels[channel_count].type = "exist";
+							$scope.selected_channels[channel_count].type = 'exist';
 							break;
 						}
 					}
 					channel_count = channel_count + 1;
 					getSelectedChannel();
 				});
-			}else{
-
 			}
-		};
+		}
 
 		getSelectedChannel();
 
 		$scope.onRemoveChannel = function(index ){
 			$scope.selected_channels.splice(index, 1);
-		}
+		};
 
 		$scope.addChannel = function(){
-			$scope.selected_channels.push({name: "", classLevel: $scope.classlevels[0]._id, selected_classlevel: $scope.classlevels[0], type: 'new'});
-		}
+			$scope.selected_channels.push({name: '', classLevel: $scope.classlevels[0]._id, selected_classlevel: $scope.classlevels[0], type: 'new'});
+		};
 
 		// Check if there are additional accounts 
 		$scope.hasConnectedAdditionalSocialAccounts = function(provider) {
@@ -72,6 +70,41 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 			});
 		};
 
+		$scope.onFileSelect = function($files ){
+			$scope.avatar_file = $files[0];
+
+            if (window.FileReader && $scope.avatar_file.type.indexOf('image') > -1) {
+                var fileReader = new FileReader();
+                fileReader.readAsDataURL($scope.avatar_file );
+  
+                fileReader.onload = function (e) {
+                    $timeout(function () {
+                        $scope.dataUrl = e.target.result;
+                    });
+                };
+            }
+		};
+
+	    $scope.start = function (index) {
+
+	    };
+
+		$scope.uploadAvatar = function(){
+	        $scope.progress = 0;
+	        $upload.upload({
+	            url: '/images/upload',
+	            headers: {'myHeaderKey': 'myHeaderVal'},
+	            file: $scope.avatar_file,
+	            fileFormDataName: 'myFile'
+	        }).then(function (response) {
+	        	console.log(response );
+	        	$scope.user.avatar = response.data.filename;
+	            $scope.updateUserProfile(true );
+	        }, null, function (evt) {
+	            $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
+	        });
+		};
+
 		// Update a user profile
 		$scope.updateUserProfile = function(isValid) {
 			if (isValid) {
@@ -81,6 +114,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 				user.$update(function(response) {
 					$scope.success = true;
 					Authentication.user = response;
+					$scope.user = response;
 				}, function(response) {
 					$scope.error = response.data.message;
 				});
@@ -95,7 +129,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 			user.$update(function(response) {
 				$scope.success = true;
 				Authentication.user = response;
-				console.log(response );
+				$scope.user = response;
 			}, function(response) {
 				$scope.error = response.data.message;
 			});
@@ -105,7 +139,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 			$scope.success = $scope.error = null;
 
 			function updatingChannel(){
-				if (channel_count == $scope.selected_channels.length ){
+				if (channel_count === $scope.selected_channels.length ){
 					$scope.success = true;
 					var user = new Users($scope.user);
 					user.channels = [];
@@ -115,13 +149,13 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 					user.$update(function(response) {
 						$scope.success = true;
 						Authentication.user = response;
-						console.log(response );
+						$scope.user = response;
 					}, function(response) {
 						$scope.error = response.data.message;
 					});					
 				}else{
 					var channel = new Channels({_id: $scope.selected_channels[channel_count]._id, name: $scope.selected_channels[channel_count].name, classLevel:$scope.selected_channels[channel_count].selected_classlevel._id } );
-					if ($scope.selected_channels[channel_count].type == "exist" ){
+					if ($scope.selected_channels[channel_count].type === 'exist' ){
 						channel.$update(function(response) {
 							channel_count = channel_count + 1;
 							updatingChannel();
@@ -141,7 +175,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 					}
 					
 				}
-			};
+			}
 
 			channel_count = 0;
 			updatingChannel();

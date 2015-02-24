@@ -4,11 +4,6 @@ angular.module('videos').controller('VideoController', ['$scope', '$stateParams'
 	function($scope, $stateParams, $location, Authentication, Videos, Languages, Classlevels, Albums, Tags) {
 		$scope.authentication = Authentication;
 		$scope.user = Authentication.user;
-		if (!$scope.user) $location.path('/');	
-
-		$scope.multipleDemo = {};
-		$scope.multipleDemo.colors = ['Blue','Red'];
-		$scope.availableColors = ['Red','Green','Blue','Yellow','Magenta','Maroon','Umbra','Turquoise'];
 
 		$scope.video_list = Videos.query();
 
@@ -72,7 +67,7 @@ angular.module('videos').controller('VideoController', ['$scope', '$stateParams'
 				if ($scope.isInData($scope.classlevels.names[i], $scope.classlevels_all) > -1){
 					$scope.video.classLevels.push($scope.classlevels_all[i]._id );
 				}else{
-					newItems.push({type:"classlevel", name: $scope.classlevels.names[i]} );
+					newItems.push({type:'classlevel', name: $scope.classlevels.names[i]} );
 				}
 			}
 
@@ -81,7 +76,7 @@ angular.module('videos').controller('VideoController', ['$scope', '$stateParams'
 				if ($scope.isInData($scope.tags.names[i], $scope.tags_all) > -1){
 					$scope.video.tags.push($scope.tags_all[i]._id );
 				}else{
-					newItems.push({type:"tag", name: $scope.tags.names[i]} );
+					newItems.push({type:'tag', name: $scope.tags.names[i]} );
 				}
 			}
 
@@ -90,7 +85,7 @@ angular.module('videos').controller('VideoController', ['$scope', '$stateParams'
 				if ($scope.isInData($scope.albums.names[i], $scope.albums_all) > -1){
 					$scope.video.albums.push($scope.albums_all[i]._id );
 				}else{
-					newItems.push({type:"album", name: $scope.albums.names[i]}  );
+					newItems.push({type:'album', name: $scope.albums.names[i]}  );
 				}
 			}			
 
@@ -99,14 +94,14 @@ angular.module('videos').controller('VideoController', ['$scope', '$stateParams'
 				if ($scope.isInData($scope.languages.names[i], $scope.languages_all) > -1){
 					$scope.video.language.push($scope.languages_all[i]._id );
 				}else{
-					newItems.push({type:"language", name: $scope.languages.names[i]}  );
+					newItems.push({type:'language', name: $scope.languages.names[i]}  );
 				}
 			}
 
 			function createNewItems(){
 				if (newItems.length > 0 ){
 					switch(newItems[0].type){
-						case "classlevel":
+						case 'classlevel':
 							var classlevel = new Classlevels({name: newItems[0].name});
 							classlevel.$save(function(response){
 								$scope.video.classLevels.push(response._id );
@@ -114,7 +109,7 @@ angular.module('videos').controller('VideoController', ['$scope', '$stateParams'
 								createNewItems();
 							});
 							break;
-						case "tag":
+						case 'tag':
 							var tag = new Tags({name: newItems[0].name});
 							tag.$save(function(response){
 								$scope.video.tags.push(response._id );
@@ -122,7 +117,7 @@ angular.module('videos').controller('VideoController', ['$scope', '$stateParams'
 								createNewItems();
 							});						
 							break;
-						case "album":
+						case 'album':
 							var album = new Albums({name: newItems[0].name});
 							album.$save(function(response){
 								$scope.video.albums.push(response._id );
@@ -130,7 +125,7 @@ angular.module('videos').controller('VideoController', ['$scope', '$stateParams'
 								createNewItems();
 							});						
 							break;
-						case "language":
+						case 'language':
 							var language = new Languages({name: newItems[0].name});
 							language.$save(function(response){
 								$scope.video.language.push(response._id );
@@ -143,14 +138,14 @@ angular.module('videos').controller('VideoController', ['$scope', '$stateParams'
 				}else{
 					updateVideo();
 				}
-			};
+			}
 
 			function updateVideo(){
 				var video_data = new Videos($scope.video );
 				video_data.$update(function(response){
 					console.log(video_data );
 				});
-			};
+			}
 
 			createNewItems();
 			

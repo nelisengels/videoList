@@ -36,6 +36,17 @@
 						</div>
 					</div>																																			
 				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-9 col-xs-9">
+							<input type="file" class="pull-left file-upload-ctrl" ng-file-select="onFileSelect($files)">
+							<span ng-show="progress>0" class="pull-right">{{progress}}%</span>
+						</div>
+						<div class="col-md-3 col-xs-3">
+							<button type="button" class="btn btn-large btn-primary pull-right" ng-click="uploadAvatar();">Upload</button>							
+						</div>
+					</div>
+				</div>
 				<div class='form-group'>
 					<button type="button" class="btn btn-large btn-primary" ng-click="gotoChangePassword();">Update Password</button>
 				</div>
