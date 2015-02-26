@@ -67,6 +67,17 @@
 						<input type="text" class="form-control" ng-model="album.weight"/>
 					</div>
 				</div><br>
+
+				<div class="row">
+					<div class="col-md-3 col-xs-3">
+						<label>listHeaderImg</label>
+					</div>
+					<div class="col-md-9 col-xs-9">
+						<input type="file" class="pull-left file-upload-ctrl" ng-file-select="onFileSelect($files)">
+						<span ng-show="progress>0" class="pull-right">{{progress}}%</span>				
+					</div>
+				</div><br>
+
 				<div class="row">
 					<div class="col-md-3 col-xs-3">
 						<label>Description</label>

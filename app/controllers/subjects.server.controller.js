@@ -70,7 +70,7 @@ exports.delete = function(req, res) {
  * List of subject
  */
 exports.list = function(req, res) {
-	Subject.find().exec(function(err, subject) {
+	Subject.find().sort({weight: 'desc'}).exec(function(err, subject) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)

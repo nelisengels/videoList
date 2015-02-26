@@ -80,6 +80,10 @@ exports.list = function(req, res) {
 	});
 };
 
+exports.getVideosFromAlbum = function(req, res ){
+	res.json(req.video);
+};
+
 /**
  * Video middleware
  */
@@ -95,6 +99,24 @@ exports.videoByID = function(req, res, next, id) {
 		if (!video) {
 			return res.status(404).send({
   				message: 'Video not found'
+  			});
+		}
+		req.video = video;
+		next();
+	});
+};
+
+exports.videoByAlbum = function(req, res, next, id ){
+	if (!mongoose.Types.ObjectId.isValid(id)) {
+		return res.status(400).send({
+			message: 'Video is invalid'
+		});
+	}
+	Video.find({albums: id}).exec(function(err, video) {
+		if (err) return next(err);
+		if (!video) {
+			return res.status(404).send({
+  				message: 'Videos not found'
   			});
 		}
 		req.video = video;

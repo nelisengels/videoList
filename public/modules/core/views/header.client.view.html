@@ -9,7 +9,7 @@
 		<a href="/#!/" class="navbar-brand">Logo</a>
 		<ul data-ng-show="authentication.user" class="pull-right avata-ul">
 			<li>
-				<img ng-src="uploads/{{user.avatar}}" class="avatar-image" />
+				<img ng-src="uploads/{{authentication.user.avatar}}" class="avatar-image" />
 			</li>
 			<li>
 				<a href="/#!/" class="avatar-name">{{authentication.user.email}}</a>

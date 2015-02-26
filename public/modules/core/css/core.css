@@ -22,3 +22,75 @@ body.ng-cloak
 	position: relative;
 	width: 100%;
 }
+
+.channel-list{
+	width: auto;
+	margin: 0px;
+	padding: 0px;
+	position: relative;
+	display: table-row;
+}
+
+.channel-list li{
+	list-style: none;
+	display: table-cell;
+	position: relative;
+	padding: 15px 21px;
+	cursor: pointer;
+}
+
+.channel-list li.active{
+	background: #efefef;
+}
+
+.channel-list li:hover{
+	background: #efefef;
+}
+
+.channel-list li div{
+	padding: 15px 21px;
+}
+
+.channel-container{
+	overflow-y: hidden;
+	overflow-x: auto;	
+}
+
+.add-channel-btn{
+	position: absolute;
+	top: 10px;
+}
+
+.test{
+	color: red;
+}
+
+.album-list-item{
+	width: 200px;
+	height: 200px;
+	background-color: rgba(0,0,0,0.1);
+	border: solid 1px #eee;
+	border-bottom: none;
+	background-size: 100% 100%;
+}
+
+.album-list-ul li{
+	list-style: none;
+	display: inline-block;
+	margin: 8px;
+	cursor: pointer;
+}
+
+.album-list-ul li:hover .album-list-item, .album-list-ul li:hover .album-item-title{
+	border-color:gray;
+}
+
+.album-item-title{
+	width: 100;
+	background: rgba(0,0,0,0.1 );
+	border: solid 1px #eee;
+	border-top: none;
+	padding: 5px 8px;
+	font-size: 20px;
+	text-align: center;
+}

@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('videos').controller('VideoController', ['$scope', '$stateParams', '$location', 'Authentication', 'Videos', 'Languages', 'Classlevels', 'Albums', 'Tags',
-	function($scope, $stateParams, $location, Authentication, Videos, Languages, Classlevels, Albums, Tags) {
+angular.module('videos').controller('VideoController', ['$scope', '$stateParams', '$location', 'Authentication', 'Videos', 'Languages', 'Classlevels', 'Albums', 'Tags', 'VideosService',
+	function($scope, $stateParams, $location, Authentication, Videos, Languages, Classlevels, Albums, Tags, VideosService ) {
 		$scope.authentication = Authentication;
 		$scope.user = Authentication.user;
 
@@ -192,6 +192,16 @@ angular.module('videos').controller('VideoController', ['$scope', '$stateParams'
 		$scope.findOne = function() {
 			$scope.video = Videos.get({
 				videoId: $stateParams.videoId
+			});
+		};
+
+		$scope.initVideoList = function(){
+			$scope.album_id = $stateParams.id;
+			VideosService.getVideosFromAlbum($scope.album_id ).then(function(data) {
+				$scope.selected_video_list = data.data;
+				console.log(data.data );
+			}, function (data) {
+				console.log(data );
 			});
 		};
 	}

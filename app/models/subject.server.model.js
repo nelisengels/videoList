@@ -15,8 +15,8 @@ var SubjectSchema = new Schema({
 		default: ''
 	},
 	weight: {
-		type: String,
-		default: ''
+		type: Number,
+		default: 0
 	}
 });
 

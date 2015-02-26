@@ -85,10 +85,6 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
             }
 		};
 
-	    $scope.start = function (index) {
-
-	    };
-
 		$scope.uploadAvatar = function(){
 	        $scope.progress = 0;
 	        $upload.upload({

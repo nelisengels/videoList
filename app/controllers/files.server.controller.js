@@ -32,7 +32,7 @@ exports.upload = function (req, res) {
             };
             res.json({filename: filename});
         }else{
-        	res.send(error );
+        	res.send(err );
         }
     });
 };

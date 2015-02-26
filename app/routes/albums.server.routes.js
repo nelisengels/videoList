@@ -13,6 +13,10 @@ module.exports = function(app) {
 		.post(albums.create);
 	app.route('/albumcreate')
 		.get(albums.albumcreate);
+	app.route('/albums/channel/:clsId')
+		.get(albums.readWithChannel );
+	app.route('/albums/groupby')
+		.get(albums.getGroupBy );
 	app.route('/albums/:albumId')
 		.get(albums.read)
 		.put(albums.update)
@@ -20,4 +24,5 @@ module.exports = function(app) {
 
 	// Finish by binding the article middleware
 	app.param('albumId', albums.albumByID);
+	app.param('clsId', albums.albumByClsID );
 };

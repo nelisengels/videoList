@@ -11,7 +11,8 @@ module.exports = function(app) {
 	app.route('/videos')
 		.get(videos.list)
 		.post(videos.create);
-
+	app.route('/album/videos/:albumId')
+		.get(videos.getVideosFromAlbum );
 	app.route('/videos/:videoId')
 		.get(videos.read)
 		.put(videos.update)
@@ -19,4 +20,5 @@ module.exports = function(app) {
 
 	// Finish by binding the article middleware
 	app.param('videoId', videos.videoByID);
+	app.param('albumId', videos.videoByAlbum );
 };

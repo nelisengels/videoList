@@ -15,8 +15,8 @@ var AlbumSchema = new Schema({
 		default: ''
 	},
 	weight: {
-		type: String,
-		default: ''
+		type: Number,
+		default: 0
 	},
 	listHeaderImg: {
 		type: String,

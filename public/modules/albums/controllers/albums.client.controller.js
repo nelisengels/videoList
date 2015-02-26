@@ -1,13 +1,18 @@
 'use strict';
 
-angular.module('albums').controller('AlbumController', ['$scope', '$stateParams', '$location', 'Authentication', 'Videos', 'Classlevels', 'Albums', 'Tags', 'Subjects',
-	function($scope, $stateParams, $location, Authentication, Videos, Classlevels, Albums, Tags, Subjects) {
+angular.module('albums').controller('AlbumController', ['$scope', '$stateParams', '$location', '$timeout', '$upload', 'Authentication', 'Videos', 'Classlevels', 'Albums', 'Tags', 'Subjects', 'Channels', 'AlbumsService',
+	function($scope, $stateParams, $location, $timeout, $upload, Authentication, Videos, Classlevels, Albums, Tags, Subjects, Channels, AlbumsService) {
 
-		$scope.album_list = Albums.query(function(data){
-			console.log($scope.album_list );
+		$scope.album_list = [];
+		$scope.subject_list = [];
+		$scope.album_arrange = [];
+
+		$scope.channels = Channels.query(function(data){
+			$scope.selected_channel = data[0];
 		});
 
 		$scope.album = {};
+
 		$scope.availableClasslevels = [];
 		$scope.classlevels = {};
 		$scope.classlevels.names = [];
@@ -26,15 +31,6 @@ angular.module('albums').controller('AlbumController', ['$scope', '$stateParams'
 			}
 		});
 
-		$scope.availableAlbums = [];
-		$scope.albums = {};
-		$scope.albums.names = [];
-		$scope.albums_all = Albums.query(function(data){
-			for (var i = 0; i < $scope.albums_all.length; i++ ){
-				$scope.availableAlbums.push($scope.albums_all[i].name );
-			}
-		});
-
 		$scope.availableTags = [];
 		$scope.tags = {};
 		$scope.tags.names = [];
@@ -43,6 +39,70 @@ angular.module('albums').controller('AlbumController', ['$scope', '$stateParams'
 				$scope.availableTags.push($scope.tags_all[i].name );
 			}
 		});
+
+		$scope.onSelectChannel = function(channel ){
+			$scope.selected_channel = channel;
+			$scope.loadAlbums(channel );
+		};
+
+		$scope.loadAlbums = function(channel ){
+			var clsID = channel.classLevel;
+			AlbumsService.getAlbumFromChannel(clsID).then(function(data) {
+				$scope.album_list = data.data;
+				arrangeAlbumList();
+			}, function (data) {
+				console.log(data );
+			});
+		};
+
+		$scope.onSelectAlbum = function(album ){
+			$location.path('/album/videos/' + album._id );
+		};
+
+		function arrangeAlbumList(){
+			$scope.subject_list = [];
+			$scope.album_arrange = [];
+
+			for (var i = 0; i < $scope.subjects_all.length; i++ ){
+				var album_obj = [];
+				album_obj.subject = $scope.subjects_all[i];
+				album_obj.list = [];
+				for (var j = 0; j < $scope.album_list.length; j++ ){
+					if (isInAlbum($scope.subjects_all[i]._id, $scope.album_list[j].subjects ) > -1 ){
+						album_obj.list.push($scope.album_list[j] );
+					}
+				}
+				if (album_obj.list.length > 0 ){
+					$scope.album_arrange.push(album_obj );
+				}
+			}
+
+			console.log($scope.album_arrange );
+		}
+
+		function isInAlbum(sub_id, sub_list ){
+			for (var i = 0; i < sub_list.length; i++ ){
+				if (sub_list[i] === sub_id ){
+					return i;
+				}
+			}
+			return -1;			
+		}
+
+		$scope.onFileSelect = function($files ){
+			$scope.album_file = $files[0];
+
+            if (window.FileReader && $scope.album_file.type.indexOf('image') > -1) {
+                var fileReader = new FileReader();
+                fileReader.readAsDataURL($scope.album_file );
+  
+                fileReader.onload = function (e) {
+                    $timeout(function () {
+                        $scope.dataUrl = e.target.result;
+                    });
+                };
+            }
+		};
 
 		$scope.createAlbum = function(){
 			var album_data = new Albums($scope.album );
@@ -115,7 +175,25 @@ angular.module('albums').controller('AlbumController', ['$scope', '$stateParams'
 					}
 
 				}else{
-					updateAlbum();
+			        $scope.progress = 0;
+			        if ($scope.album_file ){
+				        $upload.upload({
+				            url: '/images/upload',
+				            headers: {'myHeaderKey': 'myHeaderVal'},
+				            file: $scope.album_file,
+				            fileFormDataName: 'myFile'
+				        }).then(function (response) {
+				        	console.log(response );
+				        	$scope.album.listHeaderImg = response.data.filename;
+				            updateAlbum();
+				        }, null, function (evt) {
+				            $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
+				        });	
+			        }else{
+			        	$scope.album.listHeaderImg = '';
+				        updateAlbum();
+			        }
+			        
 				}
 			}
 
@@ -123,7 +201,20 @@ angular.module('albums').controller('AlbumController', ['$scope', '$stateParams'
 				var albumdata = new Albums($scope.album );
 				albumdata.$update(function(response){
 					$scope.success = true;
-					console.log(albumdata );
+					$scope.album = {};
+					$scope.classlevels = {};
+					$scope.classlevels.names = [];
+
+					$scope.subjects = {};
+					$scope.subjects.names = [];
+
+					$scope.subjects = {};
+					$scope.subjects.names = [];
+
+					$scope.tags = {};
+					$scope.tags.names = [];
+
+					$scope.album_file = {};
 				});
 			}
 
