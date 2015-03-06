@@ -6,7 +6,7 @@ angular.module('videos').config(['$stateProvider',
 		// Articles state routing
 		$stateProvider.
 		state('albumVideo', {
-			url: '/album/videos/:id',
+			url: '/album/:chnid/videos/:albumid',
 			templateUrl: 'modules/videos/views/list-video.client.view.html'
 		}).
 		state('createVideo', {

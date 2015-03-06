@@ -17,7 +17,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 		$scope.classlevels = Classlevels.query();
 
 		$scope.nextstep = function() {
-			if (($scope.credentials.email === '') || ($scope.credentials.password === '') ){
+			if (($scope.userForm.email.$valid === false) || ($scope.credentials.email === '') || ($scope.credentials.password === '') ){
 				$scope.error = 'please input the valid email and password';
 				return;
 			}
@@ -56,21 +56,6 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 			}
 			
 			createChannelInfo();
-			/*if ($scope.channel_name === '' || $scope.channel_name === null ){
-				$scope.error = 'please input the channel name';
-				return;
-			}
-			var channel = new Channels({
-				name: $scope.channel_name,
-				classLevel: $scope.selected_classlevel._id
-			});
-
-			channel.$save(function(response) {
-				$scope.credentials.channels = response._id;
-				$scope.signup();
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});*/
 		};
 
 		$scope.signup = function() {

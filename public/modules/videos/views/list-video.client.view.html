@@ -1,6 +1,12 @@
-<section class="row" data-ng-controller="VideoController" data-ng-init="initVideoList()">
-	<h3 class="col-md-12 text-center">Video List</h3>
-
-	{{selected_video_list }}
-
+<section class="row" data-ng-controller="VideolistController" data-ng-init="initVideoList()">
+	<div class="col-md-12">
+		<h3>{{selected_album.name}}</h3>
+		<div class="video-favorite-btn" title="faborite" ng-click='favoriteAlbum()' ng-style="favorite_album == true && {'border':'solid 1px #000'}"></div>
+		<div class="video-block-btn" title="block" ng-click='blockAlbum()'ng-style="userblock_album == true && {'border':'solid 1px #000'}"></div>
+	</div>
+	<div class="col-md-3 video-list-wrapper" ng-repeat="video in selected_video_list">
+		<img ng-src="{{getScreenshotFromUrl(video.src)}}" ng-click="showVideoModal(video)"/>
+		<div class="video-favorite-btn" title="faborite" ng-style="video.favorite == true && {'border': 'solid 1px #0f0'}" ng-click="favoriteVideo(video, $index)"></div>
+		<div class="video-block-btn" title="block" ng-style="video.userblock == true && {'border': 'solid 1px #0f0'}" ng-click="userblockVideo(video, $index)"></div>
+	</div>
 </section>

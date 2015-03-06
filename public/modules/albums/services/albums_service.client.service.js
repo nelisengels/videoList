@@ -10,5 +10,9 @@ angular.module('albums').service('AlbumsService', ['$http',
 		this.getAlbumGroupSubject = function() {
 			return $http.get('albums/groupby');
 		};
+
+		this.getAlbumlistFromClasslevel = function(_clslevel ){
+			return $http.get('albums/clslevel/' + _clslevel );
+		};
 	}
 ]);

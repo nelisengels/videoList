@@ -15,8 +15,7 @@ angular.module('subjects').controller('SubjectController', ['$scope', '$statePar
 			$scope.error = null;
 			subject.$save(function(response){
 				$scope.success = true;
-				$scope.subject = response;
-				console.log($scope.subject );
+				$scope.subject = {};
 			});
 		};
 	}

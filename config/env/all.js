@@ -45,21 +45,24 @@ module.exports = {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.css',
 				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
-				'public/lib/angular-ui-select/dist/select.min.css'
+				'public/lib/angular-ui-select/dist/select.min.css',
+				'public/lib/jquery-ui/themes/base/jquery-ui.css'
 			],
 			js: [
 				'public/lib/jquery/dist/jquery.min.js',			
+				'public/lib/jquery-ui/ui/jquery-ui.js',
 				'public/lib/angular/angular.js',
 				'public/lib/angular-resource/angular-resource.js',
 				'public/lib/angular-animate/angular-animate.js',
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
-				'public/lib/angular-bootstrap/ui-bootstrap.js',
 				'public/lib/angular-ui-select/dist/select.min.js',
 				'public/lib/angular-file-upload-with-mean/client/javascript/lib/angular-file-upload-shim.js',
 				'public/lib/angular-file-upload-with-mean/client/javascript/lib/angular-file-upload.js',
-				'public/lib/ng-error/ng-error.js'
+				'public/lib/ng-error/ng-error.js',
+				'public/lib/angular-youtube-mb/dist/angular-youtube-embed.min.js',
+				'public/lib/angular-ui-slider/src/slider.js'
 				]
 		},
 		css: [

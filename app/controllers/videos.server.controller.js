@@ -80,8 +80,19 @@ exports.list = function(req, res) {
 	});
 };
 
-exports.getVideosFromAlbum = function(req, res ){
-	res.json(req.video);
+exports.getVideosFromAlbum = function(req, res){
+	var channelclsid = req.params.channelclsid;
+	var albid = req.params.albid;
+	console.log(albid );
+	Video.find({albums: albid, classLevels: channelclsid }).exec(function(err, video){
+		if (!video) {
+			return res.status(404).send({
+  				message: 'Videos not found'
+  			});
+		}
+		req.video = video;
+		res.json(req.video);		
+	});	
 };
 
 /**

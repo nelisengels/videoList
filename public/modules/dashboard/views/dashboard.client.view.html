@@ -1,0 +1,32 @@
+<section class="row" data-ng-controller="DashboardController">
+	<div class="row">
+		<div class="col-md-10 channel-container">
+			<ul class="channel-list">
+				<li ng-repeat="channel in channels" ng-class="{'active': channel.name == selected_channel.name}" ng-click="onSelectChannel(channel)">
+					{{channel.name}}
+				</li>
+			</ul>
+		</div>
+		<div class="col-md-2">
+			<button type="button" class="btn btn-large btn-default pull-right add-channel-btn" ng-click="addChannel()">Add Channel</button>
+		</div>
+	</div>
+	<div class="row chancelevel-section">
+		<div class="col-md-1" ng-repeat="tag in tagChanceLevels">
+			<div ui-slider="{orientation: 'vertical', range: 'min'}"  min="0" max="9" step="1" ng-model="tag.value"></div>
+			<h4 class='chancel-text'>{{tag.name}}</h4>
+		</div>
+		<div class="col-md-1" ng-repeat="subject in subjectChanceLevels">
+			<div ui-slider="{orientation: 'vertical', range: 'min'}"  min="0" max="9" step="1" ng-model="subject.value"></div>
+			<h4 class='chancel-text'>{{subject.name}}</h4>
+		</div>			
+	</div>
+	<div class="row chancelevel-action">
+		<div class="col-md-12 col-xs-12">
+			<button type="button" class="btn btn-large btn-primary pull-left" ng-click="saveMasterlist()">Save</button>
+		</div>
+		<div data-ng-show="success" class="text-center text-success">
+			<strong>Chance Level Imported Successfully</strong>
+		</div>		
+	</div>
+</section>

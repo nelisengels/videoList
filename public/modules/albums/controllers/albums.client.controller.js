@@ -1,14 +1,14 @@
 'use strict';
 
-angular.module('albums').controller('AlbumController', ['$scope', '$stateParams', '$location', '$timeout', '$upload', 'Authentication', 'Videos', 'Classlevels', 'Albums', 'Tags', 'Subjects', 'Channels', 'AlbumsService',
-	function($scope, $stateParams, $location, $timeout, $upload, Authentication, Videos, Classlevels, Albums, Tags, Subjects, Channels, AlbumsService) {
-
+angular.module('albums').controller('AlbumController', ['$rootScope', '$scope', '$stateParams', '$location', '$timeout', '$upload', 'Authentication', 'Videos', 'Classlevels', 'Albums', 'Tags', 'Subjects', 'Channels', 'AlbumsService', '$modal',
+	function($rootScope, $scope, $stateParams, $location, $timeout, $upload, Authentication, Videos, Classlevels, Albums, Tags, Subjects, Channels, AlbumsService, $modal) {
 		$scope.album_list = [];
 		$scope.subject_list = [];
 		$scope.album_arrange = [];
 
 		$scope.channels = Channels.query(function(data){
 			$scope.selected_channel = data[0];
+			$scope.loadAlbums($scope.selected_channel );
 		});
 
 		$scope.album = {};
@@ -40,6 +40,24 @@ angular.module('albums').controller('AlbumController', ['$scope', '$stateParams'
 			}
 		});
 
+		$scope.addChannel = function(){
+			var modalInstance = $modal.open({
+				templateUrl: 'modules/albums/views/channelmodal.client.view.html',
+				controller: 'ChannelmodalController'
+		    });
+
+			modalInstance.result.then(function (selectedItem) {
+				for (var i = 0; i < selectedItem.length; i++ ){
+					$scope.channels.push(selectedItem[i] );	
+				}
+				
+		      	console.log(selectedItem );
+		    }, function () {
+		      //$log.info('Modal dismissed at: ' + new Date());
+		    });
+
+		};
+
 		$scope.onSelectChannel = function(channel ){
 			$scope.selected_channel = channel;
 			$scope.loadAlbums(channel );
@@ -56,7 +74,8 @@ angular.module('albums').controller('AlbumController', ['$scope', '$stateParams'
 		};
 
 		$scope.onSelectAlbum = function(album ){
-			$location.path('/album/videos/' + album._id );
+			$rootScope.album_name = album.name;
+			$location.path('/album/' + $scope.selected_channel._id + '/videos/' + album._id );
 		};
 
 		function arrangeAlbumList(){

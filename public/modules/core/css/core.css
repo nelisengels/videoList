@@ -76,9 +76,10 @@ body.ng-cloak
 
 .album-list-ul li{
 	list-style: none;
-	display: inline-block;
-	margin: 8px;
+	display: table-cell;
+	margin: 15px 0px 0px 0px;
 	cursor: pointer;
+	padding: 0px 20px;
 }
 
 .album-list-ul li:hover .album-list-item, .album-list-ul li:hover .album-item-title{
@@ -93,4 +94,112 @@ body.ng-cloak
 	padding: 5px 8px;
 	font-size: 20px;
 	text-align: center;
+}
+
+.video-list-wrapper{
+	margin-bottom: 12px;
+}
+
+.video-list-wrapper img:hover{
+	border-color: #e00;
+}
+
+.video-list-wrapper img{
+	cursor: pointer;
+	position: relative;
+	width: 100%;
+	min-height: 50px;
+	border: solid 1px #eee;
+}
+
+.video-modal-item{
+	position: relative;
+	padding-top: 58%;
+	height: 0;
+	margin-bottom: 15px;
+}
+
+.video-modal-item iframe{
+	position: absolute;
+	display: block;
+	left: 0px;
+	right: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.full-width{
+	width: 100%;
+}
+
+.video-modal-description{
+	padding: 2px 8px;
+}
+
+.modal{
+	background: rgba(255,255,255,0.8);
+}
+
+.modal-content{
+	padding: 35px;
+}
+
+.video-modal-close{
+	position: absolute;
+	right: 9px;
+	top: -7px;
+	font-size: 35px;	
+	cursor: pointer;
+}
+
+.video-modal-close:hover{
+	color: black;
+}
+
+.album-box{
+	overflow-y: hidden;
+	overflow-x: auto;
+	width: auto;	
+}
+
+.album-list-ul{
+	position: relative;
+	display: table-row;	
+}
+
+.video-favorite-btn{
+	width: 15px;
+	height: 15px;
+	background: yellow;
+	position: absolute;
+	bottom: 6px;
+	right: 42px;
+	cursor: pointer;
+}
+
+.video-block-btn{
+	width: 15px;
+	height: 15px;
+	background: #ee0000;
+	position: absolute;
+	bottom: 6px;
+	right: 21px;
+	cursor: pointer;
+}
+
+.video-favorite-btn:hover, .video-block-btn:hover{
+	opacity: 0.8;
+}
+
+.chancelevel-section{
+	padding: 15px 0px;
+}
+
+.chancel-text{
+	text-align: center;
+}
+
+.chancelevel-section .ui-corner-all{
+	margin: 0px auto;
 }

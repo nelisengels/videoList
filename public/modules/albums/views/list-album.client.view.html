@@ -8,12 +8,12 @@
 			</ul>
 		</div>
 		<div class="col-md-2">
-			<button type="button" class="btn btn-large btn-default pull-right add-channel-btn" >Add Channel</button>
+			<button type="button" class="btn btn-large btn-default pull-right add-channel-btn" ng-click="addChannel()">Add Channel</button>
 		</div>
 	</div>
-	<div class="row" ng-repeat="album in album_arrange">
+	<div class="row album-box" ng-repeat="album in album_arrange">
 		<h3>{{album.subject.name}}</h3>
-		<div class="col-md-12">
+		<div class="col-md-12 album-list-container">
 			<ul class="album-list-ul">
 				<li ng-repeat="item in album.list" ng-click="onSelectAlbum(item )">
 					<div ng-style="{'background-image': 'url(uploads/{{item.listHeaderImg}})'}" class="album-list-item"></div>

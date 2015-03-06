@@ -17,7 +17,41 @@ var ChannelSchema = new Schema({
 	classLevel: {
 		type: Schema.ObjectId,
 		ref: 'Classlevel'
-	}
+	},
+	userFavorites: [{
+		type: Schema.ObjectId,
+		ref: 'Video'
+	}],
+	userBlocked: [{
+		type: Schema.ObjectId,
+		ref: 'Video'
+	}],
+	channelLikes: [{
+		type: Schema.ObjectId,
+		ref: 'Video'
+	}],
+	channelDislikes: [{
+		type: Schema.ObjectId,
+		ref: 'Video'
+	}],
+	tagChanceLevels:[{
+		obj: {
+			type: Schema.ObjectId,
+			ref: 'Tag'
+		},
+		value: {
+			type: Number
+		}
+	}],
+	subjectChanceLevels:[{
+		obj: {
+			type: Schema.ObjectId,
+			ref: 'Subject'
+		},
+		value: {
+			type: Number
+		}
+	}]
 });
 
 mongoose.model('Channel', ChannelSchema);
