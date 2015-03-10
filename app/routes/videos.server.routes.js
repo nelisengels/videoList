@@ -13,6 +13,8 @@ module.exports = function(app) {
 		.post(videos.create);
 	app.route('/album/:channelclsid/videos/:albid')
 		.get(videos.getVideosFromAlbum );
+	app.route('/videoplayerlevels/:levelclsid')
+		.get(videos.getVideoPlayerLevels );
 	app.route('/videos/:videoId')
 		.get(videos.read)
 		.put(videos.update)

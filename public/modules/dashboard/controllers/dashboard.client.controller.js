@@ -27,7 +27,7 @@ angular.module('dashboard').controller('DashboardController', ['$scope', '$state
 				$scope.selected_channel = data[0];
 				$scope.selected_classlevel = $scope.selected_channel.classLevel;
 
-				AlbumsService.getAlbumFromChannel($scope.selected_classlevel ).then(function(data) {
+				AlbumsService.getAlbumlistFromClasslevel($scope.selected_classlevel ).then(function(data) {
 					$scope.albumlist = data.data[0];
 					$scope.refreshMasterlist();
 				}, function (data) {
@@ -93,7 +93,7 @@ angular.module('dashboard').controller('DashboardController', ['$scope', '$state
 			$scope.selected_channel = channel;
 			$scope.selected_classlevel = $scope.selected_channel.classLevel;
 
-			AlbumsService.getAlbumFromChannel($scope.selected_classlevel ).then(function(data) {
+			AlbumsService.getAlbumlistFromClasslevel($scope.selected_classlevel ).then(function(data) {
 				$scope.albumlist = data.data[0];
 				$scope.refreshMasterlist();
 			}, function (data) {

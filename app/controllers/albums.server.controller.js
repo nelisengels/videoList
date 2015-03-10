@@ -112,7 +112,7 @@ exports.albumByID = function(req, res, next, id) {
 	});
 };
 
-exports.albumByClsID = function(req, res, next, clsID) {
+exports.albumByClassID = function(req, res, next, clsID) {
 	console.log(clsID );
 	if (!mongoose.Types.ObjectId.isValid(clsID)) {
 		return res.status(400).send({
@@ -121,6 +121,26 @@ exports.albumByClsID = function(req, res, next, clsID) {
 	}
 
 	Album.find({classLevels: clsID}).populate(['tags', 'subjects']).sort({'weight': 'desc'}).exec(function(err, album) {
+		if (err) return next(err);
+		if (!album) {
+			return res.status(404).send({
+  				message: 'Album not found'
+  			});
+		}
+		req.album = album;
+		next();
+	});
+};
+
+exports.albumByClsID = function(req, res, next, clsID) {
+	console.log(clsID );
+	if (!mongoose.Types.ObjectId.isValid(clsID)) {
+		return res.status(400).send({
+			message: 'Album is invalid'
+		});
+	}
+
+	Album.find({classLevels: clsID}).sort({'weight': 'desc'}).exec(function(err, album) {
 		if (err) return next(err);
 		if (!album) {
 			return res.status(404).send({

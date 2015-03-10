@@ -27,10 +27,8 @@ angular.module('masterlist').controller('MasterlistController', ['$scope', '$sta
 
 		
 		var masterlist = Masterlist.query(function(){
-			$scope.masterlist = masterlist[0];
-			if ($scope.masterlist.length === 0){
-				$scope.masterlist.subjects = [];
-				$scope.masterlist.tags = [];
+			if (masterlist.length > 0){
+				$scope.masterlist = masterlist[0];
 			}
 			$scope.masterlist.tagnames = [];
 			$scope.masterlist.subjectnames = [];
@@ -77,18 +75,19 @@ angular.module('masterlist').controller('MasterlistController', ['$scope', '$sta
 				}
 			}
 			var masterlist = new Masterlist($scope.masterlist );
-			if ($scope.masterlist.length === 0){
+			if ($scope.masterlist._id){
 				$scope.success = null;
 				$scope.error = null;
-				masterlist.$save(function(response) {
+				masterlist.$update(function(response) {
 					$scope.success = true;
 				}, function(errorResponse) {
 					$scope.error = errorResponse.data.message;
 				});
 			}else{
+
 				$scope.success = null;
 				$scope.error = null;
-				masterlist.$update(function(response) {
+				masterlist.$save(function(response) {
 					$scope.success = true;
 				}, function(errorResponse) {
 					$scope.error = errorResponse.data.message;
