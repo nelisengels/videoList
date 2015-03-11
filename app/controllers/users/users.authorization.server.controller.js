@@ -7,6 +7,13 @@ var _ = require('lodash'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User');
 
+exports.getChannels = function(req, res ){
+	var userid = req.params.userinfo;
+	User.findById(userid).populate(['channels']).exec(function(err, user) {
+		res.json(user );
+	});	
+};
+
 /**
  * User middleware
  */

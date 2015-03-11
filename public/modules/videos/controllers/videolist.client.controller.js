@@ -179,15 +179,6 @@ angular.module('videos').controller('VideolistController', ['$rootScope', '$scop
 			return false;
 		};
 
-		/*$scope.setFavoriteValue = function(video_id ){
-			for (var i = 0; i < $scope.selChannel.favoriteAlbum.length; i++ ){
-				if (video_id === $scope.selChannel.favoriteAlbum[i] ){
-					$scope.selChannel.favoriteAlbum.splice(i, 1);
-					i = i - 1;
-				}
-			}
-		};*/
-
 		$scope.getUserblockValue = function(video_id ){
 			for (var i = 0; i < $scope.selChannel.userBlocked.length; i++ ){
 				if (video_id === $scope.selChannel.userBlocked[i] ){
@@ -196,15 +187,6 @@ angular.module('videos').controller('VideolistController', ['$rootScope', '$scop
 			}
 			return false;
 		};
-
-		/*$scope.setUserblockValue = function(video_id ){
-			for (var i = 0; i < $scope.selChannel.userBlocked.length; i++ ){
-				if (video_id === $scope.selChannel.userBlocked[i] ){
-					$scope.selChannel.favoriteAlbum.splice(i, 1);
-				}
-			}
-			return false;
-		};*/
 
 		$scope.showVideoModal = function(video){
 			var modalInstance = $modal.open({

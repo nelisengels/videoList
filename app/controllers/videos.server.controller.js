@@ -105,8 +105,8 @@ exports.getVideoPlayerLevels = function(req, res ){
 	//});
 	var levelclsid = req.params.levelclsid;
 
-	Video.find({classLevels: '54f13da0edb5e1ff4f59bc44'}).populate(['albums']).exec(function(err, videos ){
-		Channel.find({classLevel: '54f13da0edb5e1ff4f59bc44'}).exec(function(err, channel ){
+	Video.find({classLevels: levelclsid}).populate(['albums']).exec(function(err, videos ){
+		Channel.find({classLevel: levelclsid}).exec(function(err, channel ){
 			var video_info = [];
 			var i, j, k;
 			for (i = 0; i < videos.length; i++ ){
@@ -169,18 +169,35 @@ exports.getVideoPlayerLevels = function(req, res ){
 					rand_array.push(i );
 				}
 			}
-			var tmp_arr = [];
+			/*var tmp_arr = [];
 			for (i = 0; i < rand_array.length; i++ ){
 				tmp_arr.push(i );
 			}
 
 			tmp_arr.sort(function () {
 			  return Math.random() - 0.5;
-			});
+			});*/
+			var loop_count = Math.min(5, video_info.length );
+			var loop_ind = 0;
+			var video_index = [];
+			while (loop_ind < loop_count ){
+				var tmp_rnd = parseInt(Math.random() * rand_array.length );
+				var tmp_flag = false;
+				for (i = 0; i < video_index.length; i++ ){
+					if (rand_array[tmp_rnd] === video_index[i] ){
+						tmp_flag = true;
+						break;
+					}
+				}
+				if (tmp_flag == false ){
+					video_index.push(rand_array[tmp_rnd] );
+					loop_ind++;
+				}
+			}
 
 			var video_list = [];
-			for (i = 0; i < Math.min(video_info.length, 8); i++ ){
-				video_list.push(video_info[rand_array[tmp_arr[i]]]);
+			for (i = 0; i < video_index.length; i++ ){
+				video_list.push(video_info[video_index[i]]);
 			}
 			res.json(video_list );
 		});

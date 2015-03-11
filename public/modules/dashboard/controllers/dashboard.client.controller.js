@@ -41,7 +41,7 @@ angular.module('dashboard').controller('DashboardController', ['$scope', '$state
 			$scope.subjectChanceLevels = [];
 			for (var i = 0; i < $scope.albumlist.tags.length; i++ ){
 				var chance_level = $scope.getChanceLevel('tags', $scope.albumlist.tags[i]._id );
-				if ($scope.compairId($scope.albumlist.tags[i]._id, $scope.masterlist.tags) ){
+				if ($scope.compareId($scope.albumlist.tags[i]._id, $scope.masterlist.tags) ){
 					$scope.tagChanceLevels.push({obj:$scope.albumlist.tags[i]._id, name: $scope.albumlist.tags[i].name, value:chance_level});
 				}else{
 					$scope.tagChanceLevels.push({obj:$scope.albumlist.tags[i]._id, name: $scope.albumlist.tags[i].name, value:chance_level});
@@ -50,7 +50,7 @@ angular.module('dashboard').controller('DashboardController', ['$scope', '$state
 
 			for (i = 0; i < $scope.albumlist.subjects.length; i++ ){
 				var subject_level = $scope.getChanceLevel('subjects', $scope.albumlist.subjects[i]._id );
-				if ($scope.compairId($scope.albumlist.subjects[i]._id, $scope.masterlist.subjects) ){
+				if ($scope.compareId($scope.albumlist.subjects[i]._id, $scope.masterlist.subjects) ){
 					$scope.subjectChanceLevels.push({obj:$scope.albumlist.subjects[i]._id, value:subject_level, name: $scope.albumlist.subjects[i].name});
 				}else{
 					$scope.subjectChanceLevels.push({obj:$scope.albumlist.subjects[i]._id, value:subject_level, name: $scope.albumlist.subjects[i].name});
@@ -59,7 +59,7 @@ angular.module('dashboard').controller('DashboardController', ['$scope', '$state
 			console.log($scope.subjectChanceLevels, $scope.tagChanceLevels );
 		};
 
-		$scope.compairId = function(_id, _list ){
+		$scope.compareId = function(_id, _list ){
 			for (var i = 0; i < _list.length; i++ ){
 				if (_id === _list[i]._id ){
 					return true;
