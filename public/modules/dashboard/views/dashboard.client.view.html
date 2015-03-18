@@ -11,6 +11,16 @@
 			<button type="button" class="btn btn-large btn-default pull-right add-channel-btn" ng-click="addChannel()">Add Channel</button>
 		</div>
 	</div>
+	<div class="row channelmode-section">
+		<div class="col-md-12">
+			<label for="chancemode">Chance Mode</label>
+			<input type="checkbox" name="chancemode" id="chancemode" value="Chance Mode" class="chancemode channelmode-input" ng-model="selected_channel.chanceMode" />
+			<label for="browsermode">Browser Mode</label>
+			<input type="checkbox" name="browsermode" id="browsermode" value="Browser Mode" class="browsermode channelmode-input" ng-model="selected_channel.browserMode" />
+			<label for="timelimit" class="timelimit-label">Time Limit</label>
+			<input type="number" name="timelimit" id="timelimit" value="Time Limit" min="1" class="timelimit channelmode-input"  ng-model="selected_channel.timelimit"  />
+		</div>
+	</div>
 	<div class="row chancelevel-section">
 		<div class="col-md-1" ng-repeat="tag in tagChanceLevels">
 			<div ui-slider="{orientation: 'vertical', range: 'min'}"  min="0" max="9" step="1" ng-model="tag.value"></div>

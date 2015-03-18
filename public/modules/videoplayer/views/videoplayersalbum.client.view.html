@@ -1,0 +1,45 @@
+<section class="row" data-ng-controller="VideoplayeralbumController">
+	<div class="col-xs-12 col-md-12 playerview-action">
+		<ul>
+			<li class="play-back-btn" ng-click="playerviewstep = 2" ng-show="playerviewstep == 3">BACK</li>
+			<li ng-click="onManage()">MANAGEtest <span class="glyphicon glyphicon-cog"></span></li>
+			<li ng-show="playerviewstep==2" ng-click="playerviewstep = 1"><a script="javascript:;">HOME <span class="glyphicon glyphicon-home"></span></a></li>
+		</ul>	
+	</div>
+	<div class="col-xs-12 col-md-12 playerview-box" ng-show="playerviewstep == 1">
+		<form name="videoForm" class="signin form-horizontal" autocomplete="off">
+			<div class="form-group">
+				<div class="row channel-box">
+					<div class="col-md-3 col-xs-3 channel-item" ng-repeat="channel in channels" ng-click="gotoPlayerView(channel )">
+						<div>{{channel.name}}</div>
+					</div>
+				</div>									
+			</div>
+		</form>
+	</div>
+
+	<div class="col-xs-12 col-md-12 playerview-box" ng-show="playerviewstep == 2">
+		<form name="videoPlayList" class="form-horizontal" autocomplete="off">
+			<div class="form-group">
+				<div class="row player-box">
+					<div class="col-md-3 video-list-wrapper" ng-repeat="video in playlist">
+						<img ng-src="{{getScreenshotFromUrl(video.obj.src)}}" ng-click="playingVideo(video.obj)" />
+					</div>				
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class="col-xs-12 col-md-12 playerview-box" ng-show="playerviewstep == 3">
+		<form name="videoPlaying" class="form-horizontal" autocomplete="off">
+			<div class="form-group">
+				<div class="row player-box">
+					<div class="col-md-12">
+						<youtube-video video-url="video_item.src" player="favoritePlayer" class="videoframe" ></youtube-video>  
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+</section>

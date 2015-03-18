@@ -44,9 +44,9 @@
 	<![endif]-->
 </head>
 
-<body class="ng-cloak">
-	<header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
-	<section class="content">
+<body class="ng-cloak" ng-class="{'black-screen': isPlayerview}">
+	<header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse" ng-class="{'hidden': isPlayerview}"></header>
+	<section ng-class="{'content': isPlayerview == false, 'plcontent': isPlayerview}">
 		<section class="container">
 			{% block content %}{% endblock %}
 		</section>

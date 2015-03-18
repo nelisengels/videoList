@@ -157,7 +157,7 @@ angular.module('videos').controller('VideolistController', ['$rootScope', '$scop
 
 			var channel = new Channels($scope.selChannel );
 			channel.$update(function(data){
-				console.log(channel );
+				//console.log(channel );
 			});			
 		};
 

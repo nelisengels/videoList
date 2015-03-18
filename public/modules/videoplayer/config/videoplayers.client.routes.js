@@ -8,6 +8,10 @@ angular.module('videoplayers').config(['$stateProvider',
 		state('videoPlayer', {
 			url: '/videoplayer',
 			templateUrl: 'modules/videoplayer/views/videoplayers.client.view.html'
+		}).
+		state('videoPlayerAlbum', {
+			url: '/videoplayeralbum',
+			templateUrl: 'modules/videoplayer/views/videoplayersalbum.client.view.html'
 		});
 	}
 ]);

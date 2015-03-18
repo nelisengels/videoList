@@ -189,7 +189,7 @@ exports.getVideoPlayerLevels = function(req, res ){
 						break;
 					}
 				}
-				if (tmp_flag == false ){
+				if (tmp_flag === false ){
 					video_index.push(rand_array[tmp_rnd] );
 					loop_ind++;
 				}

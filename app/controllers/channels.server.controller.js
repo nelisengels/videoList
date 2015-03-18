@@ -66,6 +66,19 @@ exports.delete = function(req, res) {
 	});
 };
 
+exports.duplicateChannel = function(req, res ){
+	var chnname = req.params.channelName;
+	Channel.find({name: chnname }).exec(function(err, channel ){
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.json(channel);
+		}
+	});
+};
+
 /**
  * List of channel
  */

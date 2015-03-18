@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users').controller('SettingsController', ['$scope', '$http', '$location','$upload', '$timeout', 'Users', 'Authentication', 'Classlevels', 'Channels',
-	function($scope, $http, $location, $upload, $timeout, Users, Authentication, Classlevels, Channels) {
+angular.module('users').controller('SettingsController', ['$scope', '$http', '$location','$upload', '$timeout', 'Users', 'Authentication', 'Classlevels', 'Channels', 'UsercustomService',
+	function($scope, $http, $location, $upload, $timeout, Users, Authentication, Classlevels, Channels, UsercustomService) {
 		$scope.user = Authentication.user;
 
 		// If user is not signed in then redirect back home
@@ -122,18 +122,61 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 		$scope.updateUserEmail = function(){
 			$scope.success = $scope.error = null;
 			var user = new Users($scope.user);
-			user.$update(function(response) {
-				$scope.success = true;
-				Authentication.user = response;
-				$scope.user = response;
-			}, function(response) {
-				$scope.error = response.data.message;
+
+			UsercustomService.duplicateEmail(user.email).then(function(data){
+				if (data.data.length > 0 ){
+					$scope.error = 'The email address have been already set';
+				}else{
+					user.$update(function(response) {
+						$scope.success = true;
+						Authentication.user = response;
+						$scope.user = response;
+					}, function(response) {
+						$scope.error = response.data.message;
+					});
+				}
 			});
+		};
+
+		$scope.getIndStr = function(ind ){
+			var ind_str = '';
+			if (ind === 0 ){
+				ind_str = 'first';
+			}else if (ind  === 1 ){
+				ind_str = 'second';
+			}else if (ind === 2 ){
+				ind_str = 'third';
+			}else{
+				ind_str = ind + 'th';
+			}
+			return ind_str;
 		};
 
 		$scope.updateChannel = function(){
 			$scope.success = $scope.error = null;
 
+			for (var i = 0; i < $scope.selected_channels.length; i++ ){
+				var tmp_channel = $scope.selected_channels[i].name;
+				if (tmp_channel === '' ){
+					$scope.error = 'input all of the channel names';
+					return;
+				}
+				for (var j = parseInt(i) + 1; j < $scope.selected_channels.length; j++ ){
+					var sub_channel = $scope.selected_channels[j].name;
+					if (tmp_channel === sub_channel ){
+						$scope.error = 'channel name of ' + $scope.getIndStr(i) + ' is duplicated with ' + $scope.getIndStr(j) + ' channel';
+						return;
+					}
+				}
+			}
+
+			function duplicateChannel(){
+				
+			}
+
+			channel_count = 0;
+			duplicateChannel();
+						
 			function updatingChannel(){
 				if (channel_count === $scope.selected_channels.length ){
 					$scope.success = true;
@@ -173,8 +216,6 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 				}
 			}
 
-			channel_count = 0;
-			updatingChannel();
 		};
 
 

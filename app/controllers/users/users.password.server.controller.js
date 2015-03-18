@@ -188,6 +188,31 @@ exports.reset = function(req, res, next) {
 	});
 };
 
+exports.passwordreq = function(req, res, next ){
+	var psw = req.body.password;
+	var userid = req.body.id;
+	User.findById(userid, function(err, user ){
+		if (!err && user ){
+			if (user.authenticate(psw )){
+				res.send({
+					state: 'success',
+					message: 'success'
+				});
+			}else{
+				res.send({
+					state: 'fail',
+					message: 'wrong password'
+				});
+			}
+		}else{
+			res.status(400).send({
+				state: 'fail',
+				message: 'wrong password'
+			});
+		}
+	});
+};
+
 /**
  * Change Password
  */

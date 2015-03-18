@@ -11,9 +11,11 @@ module.exports = function(app) {
 
 	// Setting up the users profile api
 	app.route('/users/me').get(users.me);
+	app.route('/users/passwordreq').post(users.passwordreq );
 	app.route('/users').put(users.update);
 	app.route('/users/accounts').delete(users.removeOAuthProvider);
 	app.route('/user/channels/:userinfo').get(users.getChannels );
+	app.route('/user/duplicate/:emailId').get(users.duplicateEmail );
 
 	// Setting up the users password api
 	app.route('/users/password').post(users.changePassword);

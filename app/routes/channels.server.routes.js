@@ -12,6 +12,9 @@ module.exports = function(app) {
 		.get(channels.list)
 		.post(channels.create);
 
+	app.route('/channel/duplicate/:channelName' )
+		.get(channels.duplicateChannel );
+
 	app.route('/channels/:channelId')
 		.get(channels.read)
 		.put(channels.update)

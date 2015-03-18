@@ -26,6 +26,7 @@ var ChannelSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'Video'
 	}],
+	
 	channelLikes: [{
 		type: Schema.ObjectId,
 		ref: 'Video'
@@ -51,7 +52,19 @@ var ChannelSchema = new Schema({
 		value: {
 			type: Number
 		}
-	}]
+	}],
+	chanceMode: {
+		type: Boolean,
+		default: true
+	},
+	browserMode: {
+		type: Boolean,
+		default: true
+	},
+	timelimit: {
+		type: Number,
+		default: 10
+	}
 });
 
 mongoose.model('Channel', ChannelSchema);

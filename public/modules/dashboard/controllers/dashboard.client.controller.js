@@ -1,7 +1,11 @@
 'use strict';
 
-angular.module('dashboard').controller('DashboardController', ['$scope', '$stateParams', '$location', 'Authentication', 'Subjects', 'Channels', 'AlbumsService', 'Masterlist', '$modal',
-	function($scope, $stateParams, $location, Authentication, Subjects, Channels, AlbumsService, Masterlist, $modal) {
+angular.module('dashboard').controller('DashboardController', ['$scope', '$stateParams', '$location', 'Authentication', 'Subjects', 'Channels', 'AlbumsService', 'Masterlist', '$modal', 'UsercustomService',
+	function($scope, $stateParams, $location, Authentication, Subjects, Channels, AlbumsService, Masterlist, $modal, UsercustomService) {
+
+		$scope.authentication = Authentication;
+		$scope.user = $scope.authentication.user;
+
 		$scope.tagChanceLevels = [];
 		$scope.subjectChanceLevels = [];
 
@@ -23,7 +27,24 @@ angular.module('dashboard').controller('DashboardController', ['$scope', '$state
 		};
 
 		$scope.getAlbumdata = function(){
-			$scope.channels = Channels.query(function(data){
+
+			UsercustomService.getChannelsOfUser($scope.user._id ).then(function(data) {
+				$scope.channels = data.data.channels;
+
+				$scope.selected_channel = $scope.channels[0];
+				$scope.selected_classlevel = $scope.selected_channel.classLevel;
+
+				AlbumsService.getAlbumlistFromClasslevel($scope.selected_classlevel ).then(function(data) {
+					$scope.albumlist = data.data[0];
+					$scope.refreshMasterlist();
+				}, function (data) {
+				});
+								
+			}, function (data) {
+				console.log(data );
+			});
+
+			/*$scope.channels = Channels.query(function(data){
 				$scope.selected_channel = data[0];
 				$scope.selected_classlevel = $scope.selected_channel.classLevel;
 
@@ -32,7 +53,7 @@ angular.module('dashboard').controller('DashboardController', ['$scope', '$state
 					$scope.refreshMasterlist();
 				}, function (data) {
 				});
-			});		
+			});*/		
 		};
 
 		$scope.refreshMasterlist = function(){
@@ -56,7 +77,7 @@ angular.module('dashboard').controller('DashboardController', ['$scope', '$state
 					$scope.subjectChanceLevels.push({obj:$scope.albumlist.subjects[i]._id, value:subject_level, name: $scope.albumlist.subjects[i].name});
 				}
 			}
-			console.log($scope.subjectChanceLevels, $scope.tagChanceLevels );
+			//console.log($scope.subjectChanceLevels, $scope.tagChanceLevels );
 		};
 
 		$scope.compareId = function(_id, _list ){

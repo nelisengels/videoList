@@ -49,7 +49,7 @@
 					</div>
 				</div>
 				<div data-ng-show="error" class="text-center text-danger">
-					<strong data-ng-bind="error"></strong>
+					<strong data-ng-bind="error">{{error}}</strong>
 				</div>
 			</fieldset>
 			<fieldset ng-show="signup_step==2">
@@ -96,10 +96,13 @@
 					<div class="row">
 						<div class="col-md-12">
 							<!--<button class="btn" style="float:left;">add another channel</button>-->
-							<button class="btn btn-large btn-primary pull-left" ng-click="addChannelItem()">Add another channel</button>
-							<button class="btn btn-large btn-primary pull-right" ng-click="onUserSignup()">Save</button>
+							<button class="btn btn-large btn-primary pull-left su-add-channel-btn" ng-click="addChannelItem()">Add another channel</button>
+							<button class="btn btn-large btn-primary pull-left" ng-click="onUserSignup()">Save</button>
 						</div>
 					</div>
+				</div>
+				<div data-ng-show="error" class="text-center text-danger">
+					<strong data-ng-bind="error">{{error}}</strong>
 				</div>
 			</fieldset>
 		</form>

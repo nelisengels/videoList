@@ -1,6 +1,11 @@
 .content {
 	margin-top: 50px;
 }
+
+.plcontent{
+	margin-top: 20px;
+}
+
 .undecorated-link:hover {
 	text-decoration: none;
 }
@@ -20,7 +25,7 @@ body.ng-cloak
 }
 .full-width{
 	position: relative;
-	width: 100%;
+	width: 100% !important;
 }
 
 .channel-list{
@@ -202,4 +207,45 @@ body.ng-cloak
 
 .chancelevel-section .ui-corner-all{
 	margin: 0px auto;
+}
+
+.black-screen{
+	background: #000;
+}
+
+.playerview-action{
+	color: red;
+}
+
+.player-box .videoframe{
+	position: relative;
+	display: block;
+	margin: 0px auto;
+}
+
+.channelmode-section .col-md-12{
+	text-align: center;
+}
+
+.channelmode-section .col-md-12 label{
+	margin-left: 15px;
+	position: relative;
+	top: -2px;
+	cursor: pointer;
+}
+
+.channelmode-section .col-md-12 input[type='checkbox']{
+	cursor: pointer;
+}
+
+.channelmode-section .col-md-12 .timelimit-label{
+	margin-right: 12px;
+}
+
+.channelmode-section{
+	padding: 15px 0;
+}
+
+.videoplayer-section .album-box{
+	color: white;
 }

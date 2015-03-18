@@ -3,6 +3,10 @@
 angular.module('albums').controller('ChannelmodalController', ['$scope', '$stateParams', '$location', '$timeout', '$upload', 'Authentication', 'Videos', 'Classlevels', 'Albums', 'Tags', 'Subjects', 'Channels', 'AlbumsService', '$modal', '$modalInstance',
 	function($scope, $stateParams, $location, $timeout, $upload, Authentication, Videos, Classlevels, Albums, Tags, Subjects, Channels, AlbumsService, $modal, $modalInstance ) {
 
+		$scope.authentication = Authentication;
+		$scope.user = $scope.authentication.user;
+		console.log($scope.user );
+		
 		$scope.channels = [];
 		var channel_count = 0;
 		$scope.classlevels = Classlevels.query(function(data){

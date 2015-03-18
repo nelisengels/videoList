@@ -1,14 +1,25 @@
 'use strict';
 
-angular.module('albums').controller('AlbumController', ['$rootScope', '$scope', '$stateParams', '$location', '$timeout', '$upload', 'Authentication', 'Videos', 'Classlevels', 'Albums', 'Tags', 'Subjects', 'Channels', 'AlbumsService', '$modal',
-	function($rootScope, $scope, $stateParams, $location, $timeout, $upload, Authentication, Videos, Classlevels, Albums, Tags, Subjects, Channels, AlbumsService, $modal) {
+angular.module('albums').controller('AlbumController', ['$rootScope', '$scope', '$stateParams', '$location', '$timeout', '$upload', 'Authentication', 'Videos', 'Classlevels', 'Albums', 'Tags', 'Subjects', 'Channels', 'AlbumsService', '$modal', 'UsercustomService',
+	function($rootScope, $scope, $stateParams, $location, $timeout, $upload, Authentication, Videos, Classlevels, Albums, Tags, Subjects, Channels, AlbumsService, $modal, UsercustomService) {
+
+		$scope.authentication = Authentication;
+		$scope.user = $scope.authentication.user;
+		
 		$scope.album_list = [];
 		$scope.subject_list = [];
 		$scope.album_arrange = [];
 
-		$scope.channels = Channels.query(function(data){
+		/*$scope.channels = Channels.query(function(data){
 			$scope.selected_channel = data[0];
 			$scope.loadAlbums($scope.selected_channel );
+		});*/
+		UsercustomService.getChannelsOfUser($scope.user._id ).then(function(data) {
+			$scope.channels = data.data.channels;
+			$scope.selected_channel = $scope.channels[0];
+			$scope.loadAlbums($scope.selected_channel );			
+		}, function (data) {
+			console.log(data );
 		});
 
 		$scope.album = {};

@@ -6,5 +6,13 @@ angular.module('users').service('UsercustomService', ['$http',
 		this.getChannelsOfUser = function (userid) {
 			return $http.get('user/channels/' + userid );
 		};
+
+		this.reqPassword = function(params ){
+			return $http.post('users/passwordreq', params );
+		};
+
+		this.duplicateEmail = function(email ){
+			return $http.get('user/duplicate/' + email );
+		};
 	}
 ]);
