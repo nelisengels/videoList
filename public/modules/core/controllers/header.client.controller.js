@@ -9,9 +9,14 @@ angular.module('core').controller('HeaderController', ['$scope',  '$rootScope', 
 		}else{
 			if ($rootScope.urlpath === 'userpage' ){
 				$location.path('/');
+			}else if($rootScope.urlpath === 'loginportal' ){
+				$location.path('/videoplayer');
 			}else{
-				//$location.path('/');
-				$location.path('/videoplayer');	
+				if ($location.path().indexOf('videoplayer') > 0 || $location.path().indexOf('videolist') > 0 || $location.path().indexOf('videoalayeralbum') > 0 ){
+					$scope.locationpath = $location.path();
+				}else{
+					$location.path('/videoplayer');	
+				}			
 			}			
 		}
 		
@@ -24,7 +29,7 @@ angular.module('core').controller('HeaderController', ['$scope',  '$rootScope', 
 
 		// Collapsing the menu after navigation
 		$scope.$on('$stateChangeSuccess', function() {
-			if ($state.is('videoPlayer') || $state.is('videoPlayerAlbum') ) {
+			if ($state.is('videoPlayer') || $state.is('videoPlayerAlbum') || $state.is('videolistForChannel') || $state.is('videolistForAlbum') || $state.is('videoPlayingAlbum') || $state.is('videoPlayingChannel') ) {
 				$rootScope.isPlayerview = true;
 			}else{
 				$rootScope.isPlayerview = false;

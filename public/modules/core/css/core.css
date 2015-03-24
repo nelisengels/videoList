@@ -77,6 +77,11 @@ body.ng-cloak
 	border: solid 1px #eee;
 	border-bottom: none;
 	background-size: 100% 100%;
+	position: relative;
+}
+
+.album-list-item .video-remove-btn{
+	right: 0px;
 }
 
 .album-list-ul li{
@@ -85,6 +90,7 @@ body.ng-cloak
 	margin: 15px 0px 0px 0px;
 	cursor: pointer;
 	padding: 0px 20px;
+	position: relative;
 }
 
 .album-list-ul li:hover .album-list-item, .album-list-ul li:hover .album-item-title{
@@ -99,6 +105,10 @@ body.ng-cloak
 	padding: 5px 8px;
 	font-size: 20px;
 	text-align: center;
+}
+
+.manage-item .album-item-title{
+	border-top: solid 1px #eee;
 }
 
 .video-list-wrapper{
@@ -248,4 +258,21 @@ body.ng-cloak
 
 .videoplayer-section .album-box{
 	color: white;
+}
+
+.manage-subject{
+	padding: 5px 0px 0px 0px;
+	margin: 5px 0px;
+	cursor: pointer;
+	float: left;
+	display: block;
+	font-size: 17px;
+}
+
+.manage-subject + .editable-wrap{
+	padding: 5px 0px;
+	margin: 5px 0px;
+	float: left;
+	display: block;	
+	font-size: 17px;
 }

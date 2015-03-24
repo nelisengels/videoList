@@ -22,15 +22,16 @@ angular.module('videoplayers').controller('VideoplayerController', ['$rootScope'
 		    });
 
 			modalInstance.result.then(function (response) {
-				$location.path("/dashboard");
+				$location.path('/dashboard');
 		    }, function () {
 		      //$log.info('Modal dismissed at: ' + new Date());
 		    });
 		};
 
-		$scope.gotoPlayerView = function(channel ){		
-			$scope.selected_channel = channel;
-			if ($scope.selected_channel.chanceMode == false ){
+		$scope.gotoPlayerView = function(channel ){	
+			$location.path('/videolist/' + channel._id );
+			/*$scope.selected_channel = channel;
+			if ($scope.selected_channel.chanceMode === false ){
 				$scope.loadAlbums($scope.selected_channel );
 			}else{
 				$scope.playerviewstep = 2;
@@ -40,8 +41,9 @@ angular.module('videoplayers').controller('VideoplayerController', ['$rootScope'
 			}
 
 			$timeout(function() {
-				$scope.playerviewstep = 100 + $scope.playerviewstep;
-			}, $scope.selected_channel.timelimit * 60 * 1000);
+				if ($scope.playerviewstep !== 1 )
+					$scope.playerviewstep = 100 + $scope.playerviewstep;
+			}, $scope.selected_channel.timelimit * 60 * 100);*/
 		};
 
 		function isInAlbum(sub_id, sub_list ){
@@ -61,6 +63,9 @@ angular.module('videoplayers').controller('VideoplayerController', ['$rootScope'
 
 			modalInstance.result.then(function (response) {
 				if (response.state === 'success'){
+					if ($scope.favoritePlayer){
+						$scope.favoritePlayer.stopVideo();
+					}
 					$scope.playerviewstep = 1;
 				}
 		    }, function () {
@@ -79,8 +84,9 @@ angular.module('videoplayers').controller('VideoplayerController', ['$rootScope'
 					$scope.playerviewstep = $scope.playerviewstep - 100;
 
 					$timeout(function() {
-						$scope.playerviewstep = 100 + $scope.playerviewstep;
-					}, $scope.selected_channel.timelimit * 60 * 1000);
+						if ($scope.playerviewstep !== 1 )
+							$scope.playerviewstep = 100 + $scope.playerviewstep;
+					}, $scope.selected_channel.timelimit * 60 * 100);
 
 				}
 		    }, function () {
@@ -160,7 +166,10 @@ angular.module('videoplayers').controller('VideoplayerController', ['$rootScope'
 		};		
 
 		$scope.backMenu = function(step ){
-			$scope.favoritePlayer.stopVideo();
+			if ($scope.favoritePlayer){
+				if ($scope.playerviewstep < 100 )
+					$scope.favoritePlayer.stopVideo();
+			}
 			$scope.playerviewstep = step;
 		};
 

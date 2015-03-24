@@ -14,5 +14,9 @@ angular.module('albums').service('AlbumsService', ['$http',
 		this.getAlbumlistFromClasslevel = function(_clslevel ){
 			return $http.get('albums/clslevel/' + _clslevel );
 		};
+
+		this.removeAlbums = function(subid ){
+			return $http.get('albums/remove/' + subid );
+		};
 	}
 ]);

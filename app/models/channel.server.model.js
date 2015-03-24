@@ -57,10 +57,6 @@ var ChannelSchema = new Schema({
 		type: Boolean,
 		default: true
 	},
-	browserMode: {
-		type: Boolean,
-		default: true
-	},
 	timelimit: {
 		type: Number,
 		default: 10

@@ -1,0 +1,13 @@
+<section class="row" data-ng-controller="VideoitemController">
+	<div class="col-md-12">
+	
+		<h3 editable-text="selected_album.name" class="album-item-title-video"  onaftersave="updateAlbum(selected_album )">{{selected_album.name}}</h3>
+		<!--<div class="remove-manage" ng-click="removeAlbum(selected_album)">remove</div>-->
+	</div>
+	<div class="col-md-3 video-list-wrapper" ng-repeat="video in selected_video_list">
+		<button type="button" class="close video-remove-btn" ng-click="removeVideo(video)">
+	        <span aria-hidden="true" title="remove video">×</span>
+	    </button>	
+		<img ng-src="{{getScreenshotFromUrl(video.src)}}" ng-click="showVideoModal(video)"/>
+	</div>
+</section>

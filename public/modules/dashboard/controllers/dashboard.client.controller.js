@@ -56,8 +56,7 @@ angular.module('dashboard').controller('DashboardController', ['$scope', '$state
 			});*/		
 		};
 
-		$scope.refreshMasterlist = function(){
-			console.log($scope.albumlist.tags );
+		$scope.refreshMasterlist = function(){	
 			$scope.tagChanceLevels = [];
 			$scope.subjectChanceLevels = [];
 			for (var i = 0; i < $scope.albumlist.tags.length; i++ ){

@@ -10,5 +10,9 @@ angular.module('videos').service('VideosService', ['$http',
 		this.getPlaylistFromClass = function(clsid ){
 			return $http.get('videoplayerlevels/' + clsid );
 		};
+
+		this.removeVideos = function(albumid ){
+			return $http.get('/videos/remove/' + albumid );
+		};
 	}
 ]);

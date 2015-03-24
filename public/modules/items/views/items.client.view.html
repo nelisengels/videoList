@@ -1,0 +1,30 @@
+<div class="container" data-ng-controller="ItemlistController">
+	<div class="row">
+		<div class="col-md-10 channel-container">
+			<ul class="channel-list">
+				<li ng-repeat="channel in channels" ng-class="{'active': channel.name == selected_channel.name}" ng-click="onSelectChannel(channel)">
+					{{channel.name}}
+				</li>
+			</ul>
+		</div>
+		<div class="col-md-2">
+			<button type="button" class="btn btn-large btn-default pull-right add-channel-btn" ng-click="addChannel()">Add Channel</button>
+		</div>
+	</div>
+	<div class="row album-box manage-item" ng-repeat="album in album_arrange">
+		<div editable-text="album.subject.name" class="manage-subject" onaftersave="updateSubject(album.subject)">{{ album.subject.name || 'empty' }}</div>
+		<div class="remove-manage" ng-click="removeSubject(album.subject)">remove</div>
+		<div class="col-md-12 album-list-container">
+			<ul class="album-list-ul">
+				<li ng-repeat="item in album.list">
+					<div ng-style="{'background-image': 'url(uploads/{{item.listHeaderImg}})'}" class="album-list-item" ng-click="onSelectAlbum(item )">
+					</div>
+					<button type="button" class="close video-remove-btn" ng-click="removeAlbum(album.list, item)">
+				        <span aria-hidden="true" title="remove video">×</span>
+				    </button>
+					<p class="album-item-title">{{item.name}}</p>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

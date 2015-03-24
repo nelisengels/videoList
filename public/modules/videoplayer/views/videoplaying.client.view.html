@@ -1,0 +1,25 @@
+<section class="row videoplayer-section" data-ng-controller="VideoplayingController">
+	<div class="col-xs-12 col-md-12 playerview-action">
+		<ul>
+			<li class="play-back-btn" ng-click="onBack()">BACK</li>
+			<li ng-click="onManage()" ng-hide="playerviewstep > 100">MANAGE <span class="glyphicon glyphicon-cog"></span></li>
+			<li ng-show="playerviewstep > 100" ng-click="onResetTime()">RESET</li>
+		</ul>	
+	</div>
+
+	<div class="col-xs-12 col-md-12 playerview-box" ng-show="playerviewstep == 1">
+		<form name="videoPlaying" class="form-horizontal" autocomplete="off">
+			<div class="form-group">
+				<div class="row player-box">
+					<div class="col-md-12">
+						<youtube-video video-url="video_item.src" player="favoritePlayer" class="videoframe" ></youtube-video>  
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class="col-xs-12 col-md-12" ng-show="playerviewstep > 100">
+		<h2 style="color: white; text-align: center;">Your time is up</h2>
+	</div>
+</section>

@@ -189,13 +189,16 @@ angular.module('videos').controller('VideolistController', ['$rootScope', '$scop
 		};
 
 		$scope.showVideoModal = function(video){
+			var modal_item = {};
+			modal_item.flag = false;
+			modal_item.obj = video;			
 			var modalInstance = $modal.open({
 		      templateUrl: 'modules/videos/views/video-view.client.view.html',
 		      controller: 'VideomodalController',
 		      size: 'lg',
 		      resolve: {
 		        items: function () {
-		          return video;
+		          return modal_item;
 		        }	
 		      }
 		    });

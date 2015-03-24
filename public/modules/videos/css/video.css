@@ -55,3 +55,82 @@
 	color: #ee1111;
 	text-decoration: none;
 }
+
+.video-url-item{
+	width: calc(100% - 52px);
+	margin-top: -6px;
+	margin-left: 7px;
+	cursor: pointer;
+}
+
+.video-url-item form{
+	width: 100%;
+}
+
+.video-url-item form .editable-controls{
+	width: 100%;
+}
+
+.video-url-item form .editable-controls > input{
+	width: calc(100% - 73px);
+}
+
+.video-description-item{
+	width: calc(100% - 93px);
+	margin-top: -6px;
+	margin-left: 7px;
+	cursor: pointer;
+}
+
+.video-description-item form{
+	width: 100%;
+}
+
+.video-description-item form .editable-controls{
+	width: 100%;
+}
+
+.video-description-item form .editable-controls > textarea{
+	width: calc(100% - 73px);
+}
+
+.video-item-content{
+	margin: 8px 0px;
+}
+
+.remove-manage{
+	padding: 5px 0px 0px 0px;
+	margin: 11px 0px 11px 8px;
+	cursor: pointer;
+	float: left;
+	display: block;
+	font-size: 17px;
+	text-decoration: underline;
+}
+
+.album-item-title-video{
+	float: left;
+	cursor: pointer;
+}
+
+.album-item-title-video + .remove-manage{
+	margin-top: 23px;
+}
+
+.album-item-title-video + .form-inline{
+	padding: 12px 8px 9px 0px;
+  	font-size: 20px;
+  	float: left;
+}
+
+.video-remove-btn{
+    position: absolute;
+    color: red;
+    width: 32px;
+    right: 13px;
+    height: 20px;
+    top: 3px;
+    z-index: 111;
+    display: block;
+    opacity: 1;
+}

@@ -17,6 +17,7 @@
     "ng-error": "latest",
     "angular-youtube-mb": "~0.1.7",
     "angular-ui-slider": "latest",
-    "angular-cookies": "1.2.28"
+    "angular-cookies": "1.2.28",
+    "angular-xeditable": "~0.1.9"
   }
 }

@@ -46,12 +46,14 @@ module.exports = {
 				'public/lib/bootstrap/dist/css/bootstrap.css',
 				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
 				'public/lib/angular-ui-select/dist/select.min.css',
+				'public/lib/angular-xeditable/dist/css/xeditable.css',
 				'public/lib/jquery-ui/themes/base/jquery-ui.css'
 			],
 			js: [
 				'public/lib/jquery/dist/jquery.min.js',			
 				'public/lib/jquery-ui/ui/jquery-ui.js',
 				'public/lib/angular/angular.js',
+				'public/lib/angular-xeditable/dist/js/xeditable.min.js',
 				'public/lib/angular-resource/angular-resource.js',
 				'public/lib/angular-animate/angular-animate.js',
 				'public/lib/angular-ui-router/release/angular-ui-router.js',

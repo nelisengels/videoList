@@ -1,0 +1,35 @@
+<section class="row videoplayer-section" data-ng-controller="VideoplayerchannelController">
+	<div class="col-xs-12 col-md-12 playerview-action">
+		<ul>
+			<li ng-click="onManage()">MANAGE <span class="glyphicon glyphicon-cog"></span></li>
+			<li><a href="javascript:;" ng-click="onHome()">HOME <span class="glyphicon glyphicon-home"></span></a></li>
+			<li ng-show="playerviewstep > 100" ng-click="onResetTime()">RESET</li>
+		</ul>	
+	</div>
+	<div class="row album-box full-width" ng-repeat="album in album_arrange"ng-show="playerviewstep == 1">
+		<h3>{{album.subject.name}}</h3>
+		<div class="full-width album-list-container">
+			<ul class="album-list-ul">
+				<li ng-repeat="item in album.list" ng-click="onSelectAlbum(item )">
+					<div ng-style="{'background-image': 'url(uploads/{{item.listHeaderImg}})'}" class="album-list-item"></div>
+					<p class="album-item-title">{{item.name}}</p>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="col-xs-12 col-md-12 playerview-box" ng-show="playerviewstep == 2">
+		<form name="videoPlayList" class="form-horizontal" autocomplete="off">
+			<div class="form-group">
+				<div class="row player-box">
+					<div class="col-md-3 video-list-wrapper" ng-repeat="video in playlist">
+						<img ng-src="{{getScreenshotFromUrl(video.obj.src)}}" ng-click="playingVideo(video.obj)" />
+					</div>				
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="col-xs-12 col-md-12" ng-show="playerviewstep > 100">
+		<h2 style="color: white; text-align: center;">Your time is up</h2>
+	</div>
+</section>

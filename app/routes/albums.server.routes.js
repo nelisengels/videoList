@@ -13,6 +13,8 @@ module.exports = function(app) {
 		.post(albums.create);
 	app.route('/albumcreate')
 		.get(albums.albumcreate);
+	app.route('/albums/remove/:rmsubid')
+		.get(albums.removeAlbums );
 	app.route('/albums/channel/:clsId')
 		.get(albums.readWithChannel );
 	app.route('/albums/clslevel/:classId')

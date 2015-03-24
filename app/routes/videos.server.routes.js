@@ -15,6 +15,8 @@ module.exports = function(app) {
 		.get(videos.getVideosFromAlbum );
 	app.route('/videoplayerlevels/:levelclsid')
 		.get(videos.getVideoPlayerLevels );
+	app.route('/videos/remove/:rmalbumId' )
+		.get(videos.deleteVideos );
 	app.route('/videos/:videoId')
 		.get(videos.read)
 		.put(videos.update)

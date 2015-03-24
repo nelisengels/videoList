@@ -1,0 +1,20 @@
+<section class="row videoplayer-section" data-ng-controller="VideoplayeralbumController">
+	<div class="col-xs-12 col-md-12 playerview-action">
+		<ul>
+			<li class="play-back-btn" ng-click="onBack()">BACK</li>
+			<li ng-click="onManage()">MANAGE <span class="glyphicon glyphicon-cog"></span></li>
+			<li ng-show="playerviewstep > 100" ng-click="onResetTime()">RESET</li>
+		</ul>	
+	</div>
+
+	<div class="col-md-12" ng-show="playerviewstep == 1">
+		<h3 style="color:white;">{{selected_album.name}}</h3>
+	</div>
+	<div class="col-md-3 video-list-wrapper" ng-repeat="video in selected_video_list" ng-show="playerviewstep == 1">
+		<img ng-src="{{getScreenshotFromUrl(video.src)}}" ng-click="playingChanceVideo(video)"/>
+	</div>
+
+	<div class="col-xs-12 col-md-12" ng-show="playerviewstep > 100">
+		<h2 style="color: white; text-align: center;">Your time is up</h2>
+	</div>
+</section>

@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Album = mongoose.model('Album'),
+	Subject = mongoose.model('Subject'),
 	_ = require('lodash');
 
 /**
@@ -86,6 +87,15 @@ exports.list = function(req, res) {
 		} else {
 			res.json(album);
 		}
+	});
+};
+
+exports.removeAlbums = function(req, res ){
+	var subid = req.params.rmsubid;
+	Subject.findById(subid).remove(function(err, album){
+		Album.find({subjects: subid}).remove(function(err, album){
+			res.json(album );
+		});
 	});
 };
 

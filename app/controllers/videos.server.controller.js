@@ -55,7 +55,6 @@ exports.update = function(req, res) {
  */
 exports.delete = function(req, res) {
 	var video = req.video;
-
 	video.remove(function(err) {
 		if (err) {
 			return res.status(400).send({
@@ -80,6 +79,16 @@ exports.list = function(req, res) {
 			res.json(video);
 		}
 	});
+};
+
+exports.deleteVideos = function(req, res ){
+	var album_id = req.params.rmalbumId;
+	Album.findById(album_id).remove(function(err, album){
+		Video.find({albums: album_id}).remove(function(err, video ){
+			res.json(video );
+		});
+	});
+	
 };
 
 exports.getVideosFromAlbum = function(req, res){
@@ -215,7 +224,6 @@ exports.videoByID = function(req, res, next, id) {
 			message: 'Video is invalid'
 		});
 	}
-
 	Video.findById(id).exec(function(err, video) {
 		if (err) return next(err);
 		if (!video) {

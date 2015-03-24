@@ -3,7 +3,21 @@
     <div class="full-width video-modal-item">
           <youtube-video video-url="video_item.src"></youtube-video>  
     </div>
-    <div class="full-width video-modal-description">
-        <p>{{video_item.description}}
+    <div class="full-width video-modal-description" ng-show="editable">
+    	<div class="full-width clearfix video-item-content">
+    		<div class="pull-left">URL : </div>
+    		<div class="pull-left video-url-item">
+    			<p editable-text="video_item.src" onaftersave="updateVideoitem(video_item)">{{video_item.src}}</p>
+    		</div>
+    	</div>
+    	<div class="full-width clearfix video-item-content">
+    		<div class="pull-left">Description : </div>
+    		<div class="pull-left video-description-item">
+    			<p editable-textarea="video_item.description" onaftersave="updateVideoitem(video_item )">{{video_item.description}}</p>
+    		</div>
+    	</div>
     </div>
+    <div class="full-width video-modal-description" ng-hide="editable">
+    	{{video_item.description}}
+    </div>    
 </div>
