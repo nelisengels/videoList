@@ -11,7 +11,6 @@ angular.module('videos').controller('VideomodalController', ['$scope', '$statePa
 		};
 
 		$scope.updateVideoitem = function(video ){
-			console.log(video );
 			var video_item = new Videos(video );
 			video_item.$update(function(response){
 				console.log(response );

@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('dashboard').controller('DashboardController', ['$scope', '$stateParams', '$location', 'Authentication', 'Subjects', 'Channels', 'AlbumsService', 'Masterlist', '$modal', 'UsercustomService',
-	function($scope, $stateParams, $location, Authentication, Subjects, Channels, AlbumsService, Masterlist, $modal, UsercustomService) {
+angular.module('dashboard').controller('DashboardController', ['$scope', '$stateParams', '$location', 'Authentication', 'Subjects', 'Channels', 'AlbumsService', 'Masterlist', '$modal', 'Users', 'UsercustomService',
+	function($scope, $stateParams, $location, Authentication, Subjects, Channels, AlbumsService, Masterlist, $modal, Users, UsercustomService) {
 
 		$scope.authentication = Authentication;
 		$scope.user = $scope.authentication.user;
@@ -35,7 +35,7 @@ angular.module('dashboard').controller('DashboardController', ['$scope', '$state
 				$scope.selected_classlevel = $scope.selected_channel.classLevel;
 
 				AlbumsService.getAlbumlistFromClasslevel($scope.selected_classlevel ).then(function(data) {
-					$scope.albumlist = data.data[0];
+					$scope.albumlist = data.data[0] ? data.data[0] : [];
 					$scope.refreshMasterlist();
 				}, function (data) {
 				});
@@ -59,6 +59,8 @@ angular.module('dashboard').controller('DashboardController', ['$scope', '$state
 		$scope.refreshMasterlist = function(){	
 			$scope.tagChanceLevels = [];
 			$scope.subjectChanceLevels = [];
+			$scope.albumlist.tags = $scope.albumlist.tags ? $scope.albumlist.tags : {};
+			$scope.albumlist.subjects = $scope.albumlist.subjects ? $scope.albumlist.subjects : {};
 			for (var i = 0; i < $scope.albumlist.tags.length; i++ ){
 				var chance_level = $scope.getChanceLevel('tags', $scope.albumlist.tags[i]._id );
 				if ($scope.compareId($scope.albumlist.tags[i]._id, $scope.masterlist.tags) ){
@@ -131,7 +133,19 @@ angular.module('dashboard').controller('DashboardController', ['$scope', '$state
 					$scope.channels.push(selectedItem[i] );	
 				}
 				
-		      	console.log(selectedItem );
+		      	var user = new Users($scope.user);
+				user.channels = [];
+				for (i = 0; i < $scope.channels.length; i++ ){
+					user.channels.push($scope.channels[i]._id );
+				}
+				user.$update(function(response) {
+					$scope.success = true;
+					Authentication.user = response;
+					$scope.user = response;
+				}, function(response) {
+					$scope.error = response.data.message;
+				});			
+
 		    }, function () {
 		      //$log.info('Modal dismissed at: ' + new Date());
 		    });

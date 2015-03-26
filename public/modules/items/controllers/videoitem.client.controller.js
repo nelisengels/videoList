@@ -39,7 +39,7 @@ angular.module('videos').controller('VideoitemController', ['$rootScope', '$scop
 		};
 
 		$scope.removeVideo = function(video ){
-			var r = confirm("Are you really going to remove this video?");
+			var r = confirm('Are you really going to remove this video?');
 			if (r === false) {
 			    return;
 			}
@@ -54,13 +54,13 @@ angular.module('videos').controller('VideoitemController', ['$rootScope', '$scop
 		};
 
 		$scope.removeAlbum = function(album ){
-			var r = confirm("Are you really going to remove this album?");
+			var r = confirm('Are you really going to remove this album?');
 			if (r === false) {
 			    return;
 			}
-			var album_item = new Albums(video );
+			var album_item = new Albums(album );
 			album_item.$remove();
-		}
+		};
 
 		$scope.showVideoModal = function(video){
 			var modal_item = {};

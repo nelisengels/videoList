@@ -66,6 +66,7 @@ angular.module('videoplayers').controller('VideoplayingController', ['$rootScope
 
 		$scope.timeCount = function(timelimit ){	
 			$timeout(function() {
+				$scope.favoritePlayer.stopVideo();
 				if ($scope.playerviewstep === 1 )
 					$scope.playerviewstep = 100 + $scope.playerviewstep;
 			}, timelimit * 60 * 100);

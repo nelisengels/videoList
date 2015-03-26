@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('albums').controller('AlbumController', ['$rootScope', '$scope', '$stateParams', '$location', '$timeout', '$upload', 'Authentication', 'Videos', 'Classlevels', 'Albums', 'Tags', 'Subjects', 'Channels', 'AlbumsService', '$modal', 'UsercustomService',
-	function($rootScope, $scope, $stateParams, $location, $timeout, $upload, Authentication, Videos, Classlevels, Albums, Tags, Subjects, Channels, AlbumsService, $modal, UsercustomService) {
+angular.module('albums').controller('AlbumController', ['$rootScope', '$scope', '$stateParams', '$location', '$timeout', '$upload', 'Authentication', 'Videos', 'Classlevels', 'Albums', 'Tags', 'Subjects', 'Channels', 'AlbumsService', '$modal', 'UsercustomService', 'Users',
+	function($rootScope, $scope, $stateParams, $location, $timeout, $upload, Authentication, Videos, Classlevels, Albums, Tags, Subjects, Channels, AlbumsService, $modal, UsercustomService, Users) {
 
 		$scope.authentication = Authentication;
 		$scope.user = $scope.authentication.user;
@@ -62,7 +62,18 @@ angular.module('albums').controller('AlbumController', ['$rootScope', '$scope', 
 					$scope.channels.push(selectedItem[i] );	
 				}
 				
-		      	console.log(selectedItem );
+		      	var user = new Users($scope.user);
+				user.channels = [];
+				for (i = 0; i < $scope.channels.length; i++ ){
+					user.channels.push($scope.channels[i]._id );
+				}
+				user.$update(function(response) {
+					$scope.success = true;
+					Authentication.user = response;
+					$scope.user = response;
+				}, function(response) {
+					$scope.error = response.data.message;
+				});	
 		    }, function () {
 		      //$log.info('Modal dismissed at: ' + new Date());
 		    });
